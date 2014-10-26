@@ -1,5 +1,7 @@
 <?php
 
+use framework\RestRequest;
+
 class Http {
 
    public static function send404() {
@@ -17,7 +19,7 @@ class Http {
          header("Location: $page");
       }
       else {
-         $context = \handlers\RestRequest::get();
+         $context = RestRequest::get();
          $url = 'http://' . $_SERVER['SERVER_NAME'];
 
          if($_SERVER['SERVER_PORT']) {

@@ -2,13 +2,9 @@
 
 namespace handlers;
 
-use \HTMLTemplate;
+use framework\AbstractCrudHandler;
 
 require_once __DIR__.'/../globals.php';
-
-__autoload('handlers\Handler');
-__autoload('handlers\RestRequest');
-__autoload('HTMLTemplate');
 
 class HomeHandler extends AbstractCrudHandler {
 

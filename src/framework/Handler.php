@@ -1,12 +1,12 @@
 <?php
 
-namespace handlers;
+namespace framework;
 
-require_once __DIR__.'/../globals.php';
+require_once __DIR__ . '/../globals.php';
 
-__autoload('handlers\IRequestHandler');
-__autoload('handlers\Handler');
-__autoload('handlers\RestRequest');
+__autoload('framework\IRequestHandler');
+__autoload('framework\Handler');
+__autoload('framework\RestRequest');
 __autoload('HTMLTemplate');
 
 
@@ -28,7 +28,7 @@ abstract class Handler implements IRequestHandler {
       $handler = self::resolveHandler($part0);
       \Logger::log('Handler: '.$handler);
 
-      if(is_readable(__DIR__ . '/' . $handler . '.php')) {
+      if(is_readable(__DIR__ . '/..' . '/handlers/' . $handler . '.php')) {
          $handler = 'handlers\\' . $handler;
          __autoload($handler);
          $template = static::resolveView($request);

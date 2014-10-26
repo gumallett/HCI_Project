@@ -1,8 +1,6 @@
 <?php
 
-namespace handlers;
-
-require_once __DIR__.'/../globals.php';
+namespace framework;
 
 interface IRequestHandler {
 
