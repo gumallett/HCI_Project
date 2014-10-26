@@ -1,6 +1,6 @@
 <?php
 
-use framework\RestRequest;
+namespace framework;
 
 class HTMLTemplate {
 
