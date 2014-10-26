@@ -1,8 +1,9 @@
 <?php
 
-namespace handlers;
+namespace framework;
 
-__autoload('handlers\IRequestHandler');
+require_once __DIR__ . '/../globals.php';
+__autoload('framework\IRequestHandler');
 
 interface ICrudHandler extends IRequestHandler {
 

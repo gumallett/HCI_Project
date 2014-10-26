@@ -1,10 +1,12 @@
 <?php
 
-use handlers\Handler;
-use handlers\RestRequest;
+use framework\Handler;
+use framework\RestRequest;
 
 require_once __DIR__.'/globals.php';
-__autoload('handlers\RestRequest');
+__autoload('framework\AbstractCrudHandler');
+__autoload('framework\RestRequest');
+__autoload('HTMLTemplate');
 __autoload('Http');
 
 session_start();

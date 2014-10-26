@@ -1,5 +1,7 @@
 <?php
 
+use framework\RestRequest;
+
 class HTMLTemplate {
 
     private $file;
@@ -13,7 +15,7 @@ class HTMLTemplate {
         $this->title = $title;
         $this->data = $data;
         $this->css = "style.css";
-        $this->contextRoot = \handlers\RestRequest::get()->getContextRoot();
+        $this->contextRoot = RestRequest::get()->getContextRoot();
     }
 
     public function render() {
