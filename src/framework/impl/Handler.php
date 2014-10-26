@@ -1,13 +1,11 @@
 <?php
 
-namespace framework;
+namespace framework\impl;
 
-require_once __DIR__ . '/../globals.php';
-
-__autoload('framework\IRequestHandler');
-__autoload('framework\Handler');
-__autoload('framework\RestRequest');
-__autoload('framework\HTMLTemplate');
+use framework\util\Logger;
+use framework\IRequestHandler;
+use framework\util\RestRequest;
+use framework\util\HTMLTemplate;
 
 abstract class Handler implements IRequestHandler {
 
@@ -26,22 +24,22 @@ abstract class Handler implements IRequestHandler {
     * Gets a handler from the http request. E.g: /home will be processed by 'HomeHandler' if it exists. Otherwise, null
     * is returned.
     * @param RestRequest $request
-    * @return null|string
+    * @return null|IRequestHandler
     */
    public static function getHandler(RestRequest $request) {
       $part0 = $request->getPart(0);
-      \Logger::log('Request: '.$part0);
+      Logger::log('Request: '.$part0);
 
       $handlerName = self::resolveHandler($part0);
-      \Logger::log('Handler: '.$handlerName);
+      Logger::log('Handler: '.$handlerName);
 
       if(isset(static::$handler_cache[$handlerName])) {
          return static::$handler_cache[$handlerName];
       }
 
-      if(is_readable(__DIR__ . '/..' . '/handlers/' . $handlerName . '.php')) {
+      if(is_readable(__DIR__ . '/../../handlers/' . $handlerName . '.php')) {
          $handler = 'handlers\\' . $handlerName;
-         __autoload($handler);
+         static::loadHandler($handler);
          $template = static::resolveView($request);
 
          $view = new HTMLTemplate($part0, "template.php", array('content' => $template));
@@ -54,6 +52,9 @@ abstract class Handler implements IRequestHandler {
       return null;
    }
 
+   /**
+    * @return RestRequest
+    */
    public function getRequest() {
       return $this->request;
    }
@@ -89,6 +90,10 @@ abstract class Handler implements IRequestHandler {
       return $request . 'Handler';
    }
 
+   private static function loadHandler($handlerName) {
+      require_once $handlerName . '.php';
+   }
+
    /**
     * Attempt to automatically determine the view file to render based on the request. E.g. /home will be mapped to
     * /views/home.php. /users will be mapped to /views/users.php.
@@ -98,7 +103,8 @@ abstract class Handler implements IRequestHandler {
    protected static function resolveView(RestRequest $request) {
       $request = $request->getPart(0);
       $request = strtolower($request);
-      $result = __DIR__ . '/../views/' . $request;
+      $result = __DIR__ . '/../../views/' . $request;
+      Logger::log("View file: " . $result);
 
       if(!preg_match("/\.php$/", $result)) {
          $result .= '.php';

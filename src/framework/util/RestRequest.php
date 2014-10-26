@@ -1,6 +1,6 @@
 <?php
 
-namespace framework;
+namespace framework\util;
 
 class RestRequest {
 
@@ -23,7 +23,7 @@ class RestRequest {
          $method = $_SERVER['REQUEST_METHOD'];
       }
 
-      \Logger::log('Request URI: '.$uri);
+      Logger::log('Request URI: '.$uri);
 
       if(preg_match('/^\/~malletg/', $uri)) {
          $this->request = trim(str_replace('/~malletg', '', $uri));
@@ -41,7 +41,8 @@ class RestRequest {
       $this->parseQueryString();
       $this->parseParameters();
 
-      \Logger::log('RequestParts' . $this->requestParts);
+      Logger::log('Request Parts:');
+      Logger::log($this->requestParts);
    }
 
    public static function get($uri = null, $method = null) {
@@ -111,8 +112,6 @@ class RestRequest {
    private function parseParameters() {
       if($this->method == 'POST') {
          $this->parameters = $_POST;
-         $part = $this->getPart(0);
-         $_SESSION[$part.'_post_vars'] = $_POST;
       }
       else if($this->method == 'GET') {
          $this->parameters = $_GET;

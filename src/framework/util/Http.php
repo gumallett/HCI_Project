@@ -1,6 +1,6 @@
 <?php
 
-namespace framework;
+namespace framework\util;
 
 class Http {
 

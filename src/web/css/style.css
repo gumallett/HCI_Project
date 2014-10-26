@@ -1,3 +1,9 @@
-html,body {
 
+#searchForm {
+    width: 600px;
+}
+
+#homeHeader {
+    width: 400px;
+    text-align: center;
 }

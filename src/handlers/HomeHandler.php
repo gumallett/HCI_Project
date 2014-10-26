@@ -2,9 +2,7 @@
 
 namespace handlers;
 
-use framework\AbstractCrudHandler;
-
-require_once __DIR__.'/../globals.php';
+use framework\impl\AbstractCrudHandler;
 
 class HomeHandler extends AbstractCrudHandler {
 

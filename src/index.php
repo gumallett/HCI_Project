@@ -1,14 +1,11 @@
 <?php
 
-use framework\Handler;
-use framework\RestRequest;
-use framework\Http;
+use framework\impl\Handler;
+use framework\util\RestRequest;
+use framework\util\Http;
 
 require_once __DIR__.'/globals.php';
-__autoload('framework\AbstractCrudHandler');
-__autoload('framework\RestRequest');
-__autoload('framework\HTMLTemplate');
-__autoload('framework\Http');
+require_once __DIR__ . '/framework/autoload.php';
 
 session_start();
 $request = RestRequest::get();
@@ -17,8 +14,9 @@ $request = RestRequest::get();
    Http::sendRedirect('login');
 }
 else {*/
-   if($request->getRequest() == '/') {
+   if($request->getRequest() == '/' || $request->getRequest() == '') {
       Http::sendRedirect('home');
+      return;
    }
 
    $handler = Handler::getHandler($request);
