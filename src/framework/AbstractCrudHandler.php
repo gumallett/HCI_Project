@@ -2,14 +2,13 @@
 
 namespace framework;
 
-use Http;
-
 require_once __DIR__ . '/../globals.php';
 
 __autoload('framework\ICrudHandler');
 __autoload('framework\Handler');
 __autoload('framework\RestRequest');
-__autoload('HTMLTemplate');
+__autoload('framework\HTMLTemplate');
+__autoload('framework\Http');
 
 abstract class AbstractCrudHandler extends Handler implements ICrudHandler {
 

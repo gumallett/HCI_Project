@@ -41,7 +41,7 @@ class RestRequest {
       $this->parseQueryString();
       $this->parseParameters();
 
-      \Logger::log($this->requestParts);
+      \Logger::log('RequestParts' . $this->requestParts);
    }
 
    public static function get($uri = null, $method = null) {
