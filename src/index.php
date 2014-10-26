@@ -17,8 +17,9 @@ $request = RestRequest::get();
    Http::sendRedirect('login');
 }
 else {*/
-   if($request->getRequest() == '/') {
+   if($request->getRequest() == '/' || $request->getRequest() == '') {
       Http::sendRedirect('home');
+      return;
    }
 
    $handler = Handler::getHandler($request);

@@ -39,7 +39,7 @@ abstract class Handler implements IRequestHandler {
          return static::$handler_cache[$handlerName];
       }
 
-      if(is_readable(__DIR__ . '/..' . '/handlers/' . $handlerName . '.php')) {
+      if(is_readable(__DIR__ . '/../handlers/' . $handlerName . '.php')) {
          $handler = 'handlers\\' . $handlerName;
          __autoload($handler);
          $template = static::resolveView($request);
@@ -54,6 +54,9 @@ abstract class Handler implements IRequestHandler {
       return null;
    }
 
+   /**
+    * @return RestRequest
+    */
    public function getRequest() {
       return $this->request;
    }
@@ -99,6 +102,7 @@ abstract class Handler implements IRequestHandler {
       $request = $request->getPart(0);
       $request = strtolower($request);
       $result = __DIR__ . '/../views/' . $request;
+      \Logger::log("View file: " . $result);
 
       if(!preg_match("/\.php$/", $result)) {
          $result .= '.php';

@@ -7,6 +7,7 @@
       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
       <!-- Optional bootstrap CSS theme -->
       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+      <!-- Our stylesheet -->
       <link rel="stylesheet" type="text/css" href="<?php echo $this->contextRoot?>web/css/<?php echo $this->css; ?>"/>
 
       <title><?php echo $this->title; ?></title>
