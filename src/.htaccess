@@ -1,0 +1,11 @@
+RewriteEngine On
+RewriteBase /
+
+# ignore static content requests
+RewriteCond %{REQUEST_URI} !(.*)\.(css|js|htc|pdf|jpg|jpeg|gif|png|ico)$ [NC]
+RewriteCond %{REQUEST_URI} !(info.php)$ [NC]
+
+# route everything to index.php (controller)
+# http://stackoverflow.com/questions/8638956/mod-rewrite-for-rest-api-on-php
+RewriteRule ^(.*)$ index.php [QSA,L]
+

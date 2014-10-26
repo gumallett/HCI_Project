@@ -1,0 +1,9 @@
+{
+    "name": "HCI Project",
+    "license": "MIT",
+    "type": "project",
+    "description": "The \"Symfony Standard Edition\" distribution",
+    "require": {
+        "symfony/yaml": "2.5.6"
+    }
+}
