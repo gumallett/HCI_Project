@@ -2,7 +2,8 @@
 
 namespace handlers;
 
-use framework\AbstractCrudHandler;
+use framework\impl\AbstractCrudHandler;
+use framework\util\Logger;
 
 class SearchresultHandler extends AbstractCrudHandler {
 
@@ -14,7 +15,7 @@ class SearchresultHandler extends AbstractCrudHandler {
    public function index($id = null) {
       $params = $this->getRequest()->getParameters();
 
-      \Logger::log($params);
+      Logger::log($params);
       $this->getView()->terms = $params['searchTerms'];
    }
 
