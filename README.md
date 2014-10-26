@@ -3,9 +3,8 @@ Getting Started
 
 php composer.phar install
 
-Run a local development
+Run a local development server:
 ------------------------
-server:
 
 php -S localhost:8000 -t src
 
