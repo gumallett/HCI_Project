@@ -16,7 +16,6 @@ abstract class Handler implements IRequestHandler {
    private $routeArgs;
 
    private static $routeMatcher = null;
-   private static $handler_cache = array();
 
    private function __construct(RestRequest $request, HTMLTemplate $view, $routeArgs = array()) {
       $this->request = $request;
@@ -57,17 +56,12 @@ abstract class Handler implements IRequestHandler {
 
       Logger::log('Handler: '.$handlerName);
 
-      if(isset(static::$handler_cache[$handlerName])) {
-         return static::$handler_cache[$handlerName];
-      }
-
       if(is_readable(__DIR__ . '/../../handlers/' . $handlerName . '.php')) {
          $handler = 'handlers\\' . $handlerName;
          static::loadHandler($handler);
 
          $view = new HTMLTemplate($handlerName, "template.php", array('content' => $template));
          $handler = new $handler($request, $view, $route_args);
-         static::$handler_cache[$handlerName] = $handler;
 
          return $handler;
       }
