@@ -1,0 +1,5 @@
+create_topic:
+  path: /topics/new
+  controller: CreateTopicHandler
+  view: create_topic.php
+
