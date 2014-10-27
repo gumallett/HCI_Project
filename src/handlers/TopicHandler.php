@@ -11,8 +11,10 @@ class TopicHandler extends AbstractCrudHandler {
     * @return mixed
     */
    public function index() {
-      list($topic) = func_get_args();
-      $this->getView()->topic = $topic;
+      if(func_num_args() > 0) {
+         list($topic) = func_get_args();
+         $this->getView()->topic = $topic;
+      }
    }
 
    /**
