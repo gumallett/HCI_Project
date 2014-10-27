@@ -3,6 +3,7 @@
 namespace framework\impl;
 
 use framework\ICrudHandler;
+use framework\util\Logger;
 use framework\util\RestRequest;
 use framework\util\Http;
 
@@ -13,7 +14,12 @@ abstract class AbstractCrudHandler extends Handler implements ICrudHandler {
 
       switch(self::getMethod($request)) {
          case 'GET':
-            if(count($request->getParts()) == 2) {
+            Logger::log($this->getRouteArgs());
+            if(count($this->getRouteArgs()) > 0) {
+               call_user_func_array(array($this, 'index'), $this->getRouteArgs());
+               break;
+            }
+            else if(count($request->getParts()) == 2) {
                $idx = $request->getPart(1);
                if(strlen(trim($idx)) > 0) {
                   $this->index($idx);

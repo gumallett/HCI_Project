@@ -6,17 +6,22 @@ use framework\util\Logger;
 use framework\IRequestHandler;
 use framework\util\RestRequest;
 use framework\util\HTMLTemplate;
+use framework\util\Util;
+use framework\util\RouteMatcher;
 
 abstract class Handler implements IRequestHandler {
 
    private $request;
    private $view;
+   private $routeArgs;
 
+   private static $routeMatcher = null;
    private static $handler_cache = array();
 
-   private function __construct(RestRequest $request, HTMLTemplate $view) {
+   private function __construct(RestRequest $request, HTMLTemplate $view, $routeArgs = array()) {
       $this->request = $request;
       $this->view = $view;
+      $this->routeArgs = $routeArgs;
    }
 
    /**
@@ -27,10 +32,29 @@ abstract class Handler implements IRequestHandler {
     * @return null|IRequestHandler
     */
    public static function getHandler(RestRequest $request) {
-      $part0 = $request->getPart(0);
-      Logger::log('Request: '.$part0);
+      if(is_null(self::$routeMatcher)) {
+         $routes = Util::parseYAML(file_get_contents(__DIR__.'/../../routes/routes.yaml'));
+         self::$routeMatcher = new RouteMatcher($routes);
+      }
 
-      $handlerName = self::resolveHandler($part0);
+      $route_info = self::$routeMatcher->match($request->getRequest());
+      $route_args = null;
+      $handlerName = null;
+      $template = null;
+
+      if(is_null($route_info)) {
+         $part0 = $request->getPart(0);
+         Logger::log('Request: '.$part0);
+
+         $handlerName = self::resolveHandler($part0);
+         $template = static::resolveView($request);
+      }
+      else {
+         $handlerName = $route_info->getController();
+         $template = self::getViewFile($route_info->getView());
+         $route_args = $route_info->getArgs();
+      }
+
       Logger::log('Handler: '.$handlerName);
 
       if(isset(static::$handler_cache[$handlerName])) {
@@ -40,10 +64,9 @@ abstract class Handler implements IRequestHandler {
       if(is_readable(__DIR__ . '/../../handlers/' . $handlerName . '.php')) {
          $handler = 'handlers\\' . $handlerName;
          static::loadHandler($handler);
-         $template = static::resolveView($request);
 
-         $view = new HTMLTemplate($part0, "template.php", array('content' => $template));
-         $handler = new $handler($request, $view);
+         $view = new HTMLTemplate($handlerName, "template.php", array('content' => $template));
+         $handler = new $handler($request, $view, $route_args);
          static::$handler_cache[$handlerName] = $handler;
 
          return $handler;
@@ -77,6 +100,13 @@ abstract class Handler implements IRequestHandler {
    }
 
    /**
+    * @return mixed
+    */
+   public function getRouteArgs() {
+      return $this->routeArgs;
+   }
+
+   /**
     * Render the view.
     */
    public function process() {
@@ -94,6 +124,17 @@ abstract class Handler implements IRequestHandler {
       require_once $handlerName . '.php';
    }
 
+   private static function getViewFile($fileName) {
+      $result = __DIR__ . '/../../views/' . $fileName;
+      Logger::log("View file: " . $result);
+
+      if(!preg_match("/\.php$/", $result)) {
+         $result .= '.php';
+      }
+
+      return $result;
+   }
+
    /**
     * Attempt to automatically determine the view file to render based on the request. E.g. /home will be mapped to
     * /views/home.php. /users will be mapped to /views/users.php.
@@ -103,13 +144,6 @@ abstract class Handler implements IRequestHandler {
    protected static function resolveView(RestRequest $request) {
       $request = $request->getPart(0);
       $request = strtolower($request);
-      $result = __DIR__ . '/../../views/' . $request;
-      Logger::log("View file: " . $result);
-
-      if(!preg_match("/\.php$/", $result)) {
-         $result .= '.php';
-      }
-
-      return $result;
+      return self::getViewFile($request);
    }
 }
