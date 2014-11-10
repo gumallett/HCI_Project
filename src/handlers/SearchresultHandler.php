@@ -37,6 +37,12 @@ class SearchresultHandler extends AbstractCrudHandler {
         $result->setName('Database Design and Implementation');
         $results[] = $result;
 
+        foreach($results as $key => $result) {
+            if(!preg_match("/\b$terms\b/i", $result->getName())) {
+                unset($results[$key]);
+            }
+        }
+
         return $results;
     }
 }
