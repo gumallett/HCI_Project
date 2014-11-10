@@ -15,6 +15,14 @@
    </head>
 
    <body>
+
+   <div class="container-fluid pull-left">
+       <ul class="nav nav-pills nav-stacked">
+           <li class="<?php echo $this->navClass == 'home' ? 'active' : '' ?>"><a href="/">Home</a></li>
+           <li class="<?php echo $this->navClass == 'browse' ? 'active' : '' ?>"><a href="#">Browse</a></li>
+       </ul>
+   </div>
+
       <div class="container">
        <?php include $this->content; ?>
       </div>

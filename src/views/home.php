@@ -1,4 +1,4 @@
-<div id="homeHeader" class="center-block">
+<div id="homeHeader">
    <h1>WELCOME <small>Deep Learning</small></h1>
 </div>
 

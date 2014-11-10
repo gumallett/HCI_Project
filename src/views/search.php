@@ -1,4 +1,4 @@
-<div class="center-block" id="searchForm">
+<div id="searchForm">
     <form role="form" action="/searchResults" method="get">
         <div class="form-group">
             <label for="searchTerms">Search:</label>
