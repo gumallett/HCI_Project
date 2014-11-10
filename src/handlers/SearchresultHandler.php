@@ -4,6 +4,7 @@ namespace handlers;
 
 use framework\impl\AbstractCrudHandler;
 use framework\util\Logger;
+use model\Page;
 
 class SearchresultHandler extends AbstractCrudHandler {
 
@@ -12,27 +13,31 @@ class SearchresultHandler extends AbstractCrudHandler {
     * @param null $id
     * @return mixed
     */
-   public function index($id = null) {
-      $params = $this->getRequest()->getParameters();
+    public function index($id = null) {
+        $params = $this->getRequest()->getParameters();
 
-      Logger::log($params);
-      $this->getView()->terms = $params['searchTerms'];
-   }
+        Logger::log($params);
+        $this->getView()->setTitle('Search Results');
+        $this->setViewData('terms', $params['searchTerms']);
+        $this->setViewData('results', $this->lookupResults($params['searchTerms']));
+    }
 
-   /**
-    * Mapped to a http POST /{handler}. E.g: POST /home will be mapped to HomeHandler.php::create()
-    * @return mixed If a string, a redirect will be automatically issued to /{string}. Use this to redirect after a post. Otherwise return null.
-    */
-   public function create() {
-      // TODO: Implement create() method.
-   }
+    private function lookupResults($terms) {
+        $results = array();
 
-   public function update($id) {
-      // TODO: Implement update() method.
-   }
+        $result = new Page();
+        $result->setName('Robotics 101');
+        $results[] = $result;
 
-   public function delete($id) {
-      // TODO: Implement delete() method.
-   }
+        $result = new Page();
+        $result->setName('CS 101');
+        $results[] = $result;
+
+        $result = new Page();
+        $result->setName('Database Design and Implementation');
+        $results[] = $result;
+
+        return $results;
+    }
 }
  

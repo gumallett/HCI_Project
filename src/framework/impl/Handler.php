@@ -93,6 +93,10 @@ abstract class Handler implements IRequestHandler {
       $this->view = $view;
    }
 
+   public function setViewData($key, $value) {
+      $this->getView()->$key = $value;
+   }
+
    /**
     * @return mixed
     */
