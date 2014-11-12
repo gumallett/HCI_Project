@@ -17,12 +17,34 @@ app.config(function($stateProvider, $urlRouterProvider) {
         url: "/topics?q",
         templateUrl: 'js/app/partials/topics.html',
         resolve: {
-            foundTopics: function($stateParams, $log, TopicResource) {
-                $log.log($stateParams);
+            foundTopics: function($stateParams, TopicResource) {
                 return TopicResource.getTopics($stateParams['q']);
             }
         },
         controller: 'TopicsCtrl'
+    });
+
+    $stateProvider.state('topic', {
+        url: "/topics/:topic",
+        templateUrl: 'js/app/partials/topic.html',
+        resolve: {
+            foundTopic: function($stateParams, $state, TopicResource) {
+                var topic = TopicResource.getTopic($stateParams['topic']);
+
+                if(angular.isUndefined(topic)) {
+                    throw 'topic not found: '+$stateParams['topic'];
+                }
+
+                return topic;
+            }
+        },
+        controller: 'TopicCtrl'
+    });
+});
+
+app.run(function($rootScope, $log) {
+    $rootScope.$on('$stateChangeError', function(event, toState, toParams, fromState, fromParams, error) {
+        $log.warn(error);
     });
 });
 

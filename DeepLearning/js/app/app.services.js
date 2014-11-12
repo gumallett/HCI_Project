@@ -6,27 +6,37 @@ app.factory('TopicResource', function() {
             heading: 'Robotics 101',
             description: 'Montclair State University',
             imgUrl: 'img/team/1.jpg',
-            keywords: ['robotics', 'montclair']
+            keywords: ['robotics', 'montclair'],
+            name: 'robotics'
         },
         {
             heading: 'CS 101',
             description: 'MIT Robotic Notes',
             imgUrl: 'img/team/2.jpg',
-            keywords: ['cs', 'computer science', 'intro']
+            keywords: ['cs', 'computer science', 'intro'],
+            name: 'csintro'
         },
         {
             heading: 'Image sensors',
             description: 'Python update 2014',
             imgUrl: 'img/team/3.jpg',
-            keywords: ['image','images','python']
+            keywords: ['image','images','python'],
+            name: 'imagesensors'
         },
         {
             heading: 'HCI',
             description: 'Robotics and Human interaction',
             imgUrl: 'img/team/4.jpg',
-            keywords: ['robotics', 'hci']
+            keywords: ['robotics', 'hci'],
+            name: 'hci'
         }
     ];
+
+    var topicJson = {
+        robotics: {
+            heading: 'Robotics 101'
+        }
+    };
 
     return {
         getTopics: function(query) {
@@ -49,6 +59,9 @@ app.factory('TopicResource', function() {
             });
 
             return arr;
+        },
+        getTopic: function(topic) {
+            return topicJson[topic];
         }
     }
 });

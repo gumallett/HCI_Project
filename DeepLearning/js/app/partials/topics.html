@@ -8,7 +8,7 @@
     <div class="row">
         <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3" ng-repeat="topic in foundTopics">
             <div class="box-team wow bounceInDown" data-wow-delay="0.1s">
-                <img ng-src="{{ topic.imgUrl }}" alt="" class="img-responsive" />
+                <a ui-sref="topic({'topic': topic.name})"><img ng-src="{{ topic.imgUrl }}" alt="" class="img-responsive" /></a>
                 <h4>{{ topic.heading }}</h4>
                 <p>{{ topic.description }}</p>
             </div>
