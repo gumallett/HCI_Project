@@ -14,8 +14,15 @@ app.config(function($stateProvider, $urlRouterProvider) {
     });
 
     $stateProvider.state('topics', {
-        url: "/topics",
-        templateUrl: 'js/app/partials/topics.html'
+        url: "/topics?q",
+        templateUrl: 'js/app/partials/topics.html',
+        resolve: {
+            foundTopics: function($stateParams, $log, TopicResource) {
+                $log.log($stateParams);
+                return TopicResource.getTopics($stateParams['q']);
+            }
+        },
+        controller: 'TopicsCtrl'
     });
 });
 
@@ -28,8 +35,14 @@ app.directive('hciNav', function($state) {
     }
 });
 
-app.directive('hciSearch', function() {
+app.directive('hciSearch', function($state) {
     return {
-        templateUrl: 'js/app/partials/search.html'
+        templateUrl: 'js/app/partials/search.html',
+        link: function(scope) {
+            scope.state = $state;
+            scope.search = function() {
+                $state.go('topics',{q:scope.q});
+            }
+        }
     }
 });

@@ -20,6 +20,10 @@ body{
 	
 }
 
+#contentPane {
+    margin-left: 90px;
+}
+
 /*Overwrite dl-menu*/
 .dl-menuwrapper .dl-menu {
     pointer-events: auto;
