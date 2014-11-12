@@ -20,6 +20,11 @@ body{
 	
 }
 
+/*Overwrite dl-menu*/
+.dl-menuwrapper .dl-menu {
+    pointer-events: auto;
+}
+
 h1 {
 	font-size: 36px;
 }

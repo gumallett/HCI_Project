@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="hci">
   <head>
     <title>Deep Learning Home Page</title>
     <meta charset="utf-8" />
@@ -9,53 +9,21 @@
     <link href="css/style.css" rel="stylesheet" media="screen">
 	<link href="color/default.css" rel="stylesheet" media="screen">
 	<script src="js/modernizr.custom.js"></script>
-      <meta http-equiv="Content-Type" content="text/html; charset=utf-8"></head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  </head>
   <body>
-	<div class="menu-area">
-			<div id="dl-menu" class="dl-menuwrapper">
-						<button class="dl-trigger">Open Menu</button>
-						<ul class="dl-menu">
-							<li>
-								<a href="#intro">Home</a>
-							</li>
-							<li><a href="#about">Topics</a></li>
-							<li><a href="#services">Quiz</a></li>
-							<li><a href="#works">Flash Card</a></li>
-						  <li><a href="#contact">Profile</a></li>
-							<li>
-								<a href="#">Sub Menu</a>
-								<ul class="dl-submenu">
-									<li><a href="#">Sub menu</a></li>
-									<li><a href="#">Sub menu</a></li>
-								</ul>
-							</li>
-						</ul>
-					</div><!-- /dl-menuwrapper -->
-	</div>	
+	<div hci-nav></div>
 
-	  
-<p><span>Deep Learning</span></p>
-	  
-	  
-<!-- About -->
-	  <section id="about" class="home-section bg-white">
-		<div class="container">
-			  <div class="row">
-				  <div class="col-md-offset-2 col-md-8">
-					<div class="section-heading">
-					 <h3>Search a topic and begin to advance your studies</h3>
-                     <input name="search" type="text" size="45">
-					 <p>Jason, John, </p>
-					</div>
-				  </div>
-			  </div>
-			 
+    <div class="container">
+        <p><span>Deep Learning</span></p>
+        <div ui-view></div>
+    </div>
 
 	<footer>
 		<div class="container">
 			<div class="row">
 				<div class="col-md-12">
-					<p>Copyright &copy;2014 Cervicusco <a href="http://http://www.cervicusco.org/">Cervicusco Peru</a></p>
+					<p>Copyright &copy;2014</p>
 				</div>
 			</div>		
 		</div>	
@@ -65,8 +33,11 @@
     <script src="js/jquery.js"></script>
     <script src="js/bootstrap.min.js"></script>
 	<script src="js/jquery.smooth-scroll.min.js"></script>
-	<script src="js/jquery.dlmenu.js"></script>
+	<!--<script src="js/jquery.dlmenu.js"></script>-->
 	<script src="js/wow.min.js"></script>
-	<script src="js/custom.js"></script>
-  	
+	<!--<script src="js/custom.js"></script>-->
+    <script src="js/angular.js"></script>
+    <script src="js/angular-ui-router.js"></script>
+    <script src="js/app/app.js"></script>
+</body>
 </html>
