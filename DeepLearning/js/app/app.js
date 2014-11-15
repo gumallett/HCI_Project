@@ -1,4 +1,4 @@
-var app = angular.module('hci', ['ui.router']);
+var app = angular.module('hci', ['ngSanitize','ui.router']);
 
 app.config(function($stateProvider, $urlRouterProvider) {
     $urlRouterProvider.otherwise("/");
@@ -40,6 +40,40 @@ app.config(function($stateProvider, $urlRouterProvider) {
         },
         controller: 'TopicCtrl'
     });
+
+    $stateProvider.state('topicFlashcards', {
+        url: "/topics/:topic/flashcards",
+        templateUrl: 'js/app/partials/flashcards.html',
+        resolve: {
+            foundTopic: function($stateParams, $state, TopicResource) {
+                var topic = TopicResource.getTopic($stateParams['topic']);
+
+                if(angular.isUndefined(topic)) {
+                    throw 'topic not found: '+$stateParams['topic'];
+                }
+
+                return topic;
+            }
+        },
+        controller: 'TopicCtrl'
+    });
+
+    $stateProvider.state('topicQuiz', {
+        url: "/topics/:topic/quiz",
+        templateUrl: 'js/app/partials/quiz.html',
+        resolve: {
+            foundTopic: function($stateParams, $state, TopicResource) {
+                var topic = TopicResource.getTopic($stateParams['topic']);
+
+                if(angular.isUndefined(topic)) {
+                    throw 'topic not found: '+$stateParams['topic'];
+                }
+
+                return topic;
+            }
+        },
+        controller: 'TopicCtrl'
+    });
 });
 
 app.run(function($rootScope, $log) {
@@ -48,11 +82,12 @@ app.run(function($rootScope, $log) {
     });
 });
 
-app.directive('hciNav', function($state) {
+app.directive('hciNav', function($state, $stateParams) {
     return {
         templateUrl: 'js/app/partials/nav.html',
         link: function(scope) {
             scope.state = $state;
+            scope.stateParams = $stateParams;
         }
     }
 });

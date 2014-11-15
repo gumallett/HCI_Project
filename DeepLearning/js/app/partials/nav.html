@@ -6,8 +6,8 @@
                 <a href="#/">Home</a>
             </li>
             <li><a href="#/topics">Topics</a></li>
-            <li ng-show="state.is('topic')"><a href="#services">Quiz</a></li>
-            <li ng-show="state.is('topic')"><a href="#works">Flash Card</a></li>
+            <li ng-show="state.is('topic') || state.is('topicFlashcards') || state.is('topicQuiz')"><a ng-href="#/topics/{{stateParams.topic}}/quiz">Quiz</a></li>
+            <li ng-show="state.is('topic') || state.is('topicFlashcards') || state.is('topicQuiz')"><a ng-href="#/topics/{{stateParams.topic}}/flashcards">Flash Cards</a></li>
             <li><a href="#/about">Profile</a></li>
         </ul>
     </div>
