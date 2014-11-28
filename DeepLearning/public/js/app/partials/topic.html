@@ -3,7 +3,11 @@
 <button ng-show="editMode" class="btn btn-primary" ng-click="save()">Save</button>
 <br/><br/>
 <div ng-show="editMode" class="row text-left">
-    <div text-angular ng-model="topic.content"></div>
+    <div class="col-sm-12">
+        <br/>
+        <div text-angular-toolbar name="statictoolbar" class="statictoolbar"></div>
+        <div text-angular ng-model="topic.content" ta-target-toolbars="statictoolbar"></div>
+    </div>
 </div>
 
 <div ng-hide="editMode" id="topicContent" class="row text-left">

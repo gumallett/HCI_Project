@@ -1,6 +1,6 @@
 var app = angular.module('hci', ['ngSanitize','ui.router','textAngular']);
 
-app.config(function($stateProvider, $urlRouterProvider) {
+app.config(function($stateProvider, $urlRouterProvider, $provide) {
     $urlRouterProvider.otherwise("/");
 
     $stateProvider.state('home', {
@@ -74,6 +74,16 @@ app.config(function($stateProvider, $urlRouterProvider) {
         },
         controller: 'TopicCtrl'
     });
+
+    // text editor config
+    $provide.decorator('taOptions', ['$delegate', function(taOptions) {
+        taOptions.toolbar = [
+            ['h1', 'h2', 'h3', 'h4', 'h5', 'p', 'pre', 'quote'],
+            ['bold', 'italics', 'underline', 'strikeThrough', 'ul', 'ol', 'redo', 'undo', 'clear']
+        ];
+
+        return taOptions;
+    }]);
 });
 
 app.run(function($rootScope, $log) {
