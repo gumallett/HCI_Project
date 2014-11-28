@@ -30,6 +30,9 @@ app.factory('TopicResource', function($http) {
             return $http.get('/topics/'+topic).then(function(topicJson) {
                 return topicJson.data;
             });
+        },
+        save: function(topicName, topic) {
+            return $http.post('/topics/'+topicName, topic);
         }
     }
 });

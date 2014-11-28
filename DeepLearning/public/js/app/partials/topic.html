@@ -1,11 +1,11 @@
 <h2 xmlns="http://www.w3.org/1999/html">{{ topic.heading }}</h2>
-<button ng-hide="true" class="btn btn-success">Edit</button>
-<form role="form" class="center-block" style="width: 400px;">
-    <div class="form-group" ng-show="editMode">
-        <textarea rows="10" class="form-control" ng-model="topic.content"></textarea>
-    </div>
-</form>
+<button ng-hide="editMode" class="btn btn-success" ng-click="edit()">Edit</button>
+<button ng-show="editMode" class="btn btn-primary" ng-click="save()">Save</button>
+<br/><br/>
+<div ng-show="editMode" class="row text-left">
+    <div text-angular ng-model="topic.content"></div>
+</div>
 
-<div id="topicContent" class="row text-left">
+<div ng-hide="editMode" id="topicContent" class="row text-left">
     <div class="col-sm-12" ng-bind-html="topic.content"></div>
 </div>

@@ -1,4 +1,4 @@
-var app = angular.module('hci', ['ngSanitize','ui.router']);
+var app = angular.module('hci', ['ngSanitize','ui.router','textAngular']);
 
 app.config(function($stateProvider, $urlRouterProvider) {
     $urlRouterProvider.otherwise("/");

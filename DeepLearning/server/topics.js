@@ -31,12 +31,16 @@ var topicsJson = [
     }
 ];
 
+var getTopicJsonFile = function(topic) {
+    return "server/topics/" + topic + ".json";
+};
+
 module.exports = {
     "getAll": function() {
         return topicsJson;
     },
     "get": function(topic) {
-        var file = "server/topics/" + topic + ".json";
+        var file = getTopicJsonFile(topic);
         try {
             return JSON.parse(fs.readFileSync(file, 'utf-8'));
         }
@@ -44,5 +48,23 @@ module.exports = {
             console.log(err);
             return null;
         }
+    },
+    "save": function(name, topic) {
+        if(!topic || !name) {
+            return;
+        }
+
+        var file = getTopicJsonFile(name);
+        console.log("Saving " + name + " to " + file);
+
+        try {
+            fs.writeFileSync(file, JSON.stringify(topic));
+        }
+        catch(err) {
+            console.log(err);
+            return false;
+        }
+
+        return true;
     }
 };
