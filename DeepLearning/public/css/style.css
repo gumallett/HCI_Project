@@ -13,15 +13,58 @@ General
 
 body{
 	margin:0;
-	padding:0 0 85px;
+	padding:70px 0 45px 0;
 	text-align: center;
 	font-family: 'Open Sans', sans-serif;
 	font-size: 14px;
 	line-height: 1.6em;
 }
 
+.navbar-default {
+	background-color: #2B2B2B;
+}
+
+.navbar-default .navbar-text {
+	color: #FFF;
+}
+
+.navbar-default .navbar-nav > li > a {
+	color: #FFF;
+	outline: none;
+}
+
+.navbar-default .navbar-nav > li > div {
+	margin-top: 9px;
+	margin-left: 20px;
+}
+
+.navbar-default .navbar-nav > li > .btn-group > button {
+	color: #FFF;
+	background: rgba(255,248,213,0.1);
+	border: none;
+}
+
+.dropdown-menu,
+.dropdown-menu ul,
+.dropdown-menu li a
+{
+	color: #FFF;
+	background-color: #2B2B2B;
+}
+
+.navbar-default .navbar-nav > li > a:hover,
+.navbar-default .navbar-nav > li > a:focus,
+.navbar-default .navbar-nav > li > a.active,
+.dropdown-menu li a:hover
+{
+	color: #FFF;
+	background: rgba(255,248,213,0.1);
+}
+
+.nav, .pagination, .carousel, .panel-title a { cursor: pointer; }
+
 #contentPane {
-    margin-left: 125px;
+
 }
 
 /*Overwrite dl-menu*/
@@ -38,7 +81,7 @@ body{
 
 .statictoolbar{
     position: fixed;
-    top: 140px;
+    top: 150px;
     z-index: 200;
 }
 
@@ -559,7 +602,7 @@ Footer
 footer {
 	background: #2b2b2b;
 	color: #ddd;
-	padding: 30px 0 30px;
+	padding: 10px 0 10px;
 }
 
 

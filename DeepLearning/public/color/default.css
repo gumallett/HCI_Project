@@ -1,9 +1,6 @@
 a, a:hover{
 	color: #529abb;
 }
-.navbar-default{
-	background: #529abb;
-}
 
 .form-control:focus {
   border-color: #529abb;

@@ -1,4 +1,4 @@
-var app = angular.module('hci', ['ngSanitize','ui.router','textAngular']);
+var app = angular.module('hci', ['ngSanitize','ui.router','textAngular','ui.bootstrap']);
 
 app.config(function($stateProvider, $urlRouterProvider, $provide) {
     $urlRouterProvider.otherwise("/");
@@ -98,6 +98,28 @@ app.directive('hciNav', function($state, $stateParams) {
         link: function(scope) {
             scope.state = $state;
             scope.stateParams = $stateParams;
+
+            scope.topicHome = function() {
+                $state.go('topic', {'topic' : $stateParams['topic']});
+            }
+        }
+    }
+});
+
+app.directive('hciEditToggle', function(TopicResource, $stateParams, $rootScope) {
+    return {
+        templateUrl: 'js/app/partials/directive/editToggle.html',
+        link: function(scope) {
+            $rootScope.editMode = false;
+
+            scope.edit = function() {
+                $rootScope.editMode = true;
+            };
+
+            scope.save = function() {
+                TopicResource.save($stateParams['topic'], $rootScope.topic);
+                $rootScope.editMode = false;
+            };
         }
     }
 });

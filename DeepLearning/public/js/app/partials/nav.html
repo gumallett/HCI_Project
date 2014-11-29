@@ -1,14 +1,27 @@
-<div class="menu-area no-js">
-    <div id="menu" class="dl-menuwrapper">
-        <!--<button class="dl-trigger">Open Menu</button>-->
-        <ul class="dl-menu">
-            <li>
-                <a href="#/">Home</a>
+
+<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container-fluid">
+        <ul class="nav navbar-nav">
+            <li><a ng-class="{'active':state.is('home')}" href="#/">Home</a></li>
+            <li><a ng-class="{'active':state.is('topics')}" href="#/topics">Topics</a></li>
+            <li><a ng-class="{'active':state.is('about')}" href="#/about">Profile</a></li>
+
+            <li ng-show="state.is('topic') || state.is('topicFlashcards') || state.is('topicQuiz')">
+                <div class="btn-group text-left" dropdown>
+                    <button type="button" class="btn btn-default" ng-click="topicHome()"><strong>{{stateParams.topic}}</strong></button>
+                    <button type="button" class="btn btn-default dropdown-toggle" dropdown-toggle>
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a ng-href="#/topics/{{stateParams.topic}}/quiz">Quiz</a></li>
+                        <li><a ng-href="#/topics/{{stateParams.topic}}/flashcards">Flash Cards</a></li>
+                    </ul>
+                </div>
             </li>
-            <li><a href="#/topics">Topics</a></li>
-            <li ng-show="state.is('topic') || state.is('topicFlashcards') || state.is('topicQuiz')"><a ng-href="#/topics/{{stateParams.topic}}/quiz">Quiz</a></li>
-            <li ng-show="state.is('topic') || state.is('topicFlashcards') || state.is('topicQuiz')"><a ng-href="#/topics/{{stateParams.topic}}/flashcards">Flash Cards</a></li>
-            <li><a href="#/about">Profile</a></li>
+            <li ng-show="state.is('topic')">
+                <div hci-edit-toggle></div>
+            </li>
         </ul>
+        <p class="navbar-text navbar-right"><strong>Deep Learning</strong></p>
     </div>
-</div>
+</nav>
