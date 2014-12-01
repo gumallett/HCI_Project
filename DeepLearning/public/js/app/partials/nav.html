@@ -22,6 +22,9 @@
                 <div hci-edit-toggle></div>
             </li>
         </ul>
+        <form ng-show="state.is('topic') || state.is('topicFlashcards') || state.is('topicQuiz')" class="navbar-form navbar-left" role="search">
+            <div class="form-group" hci-search input-size="20"></div>
+        </form>
         <p class="navbar-text navbar-right"><strong>Deep Learning</strong></p>
     </div>
 </nav>

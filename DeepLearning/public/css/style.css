@@ -20,6 +20,10 @@ body{
 	line-height: 1.6em;
 }
 
+.navbar-form {
+	margin-bottom: 0;
+}
+
 .navbar-default {
 	background-color: #2B2B2B;
 }

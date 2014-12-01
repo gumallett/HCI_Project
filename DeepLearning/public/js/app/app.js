@@ -127,8 +127,17 @@ app.directive('hciEditToggle', function(TopicResource, $stateParams, $rootScope)
 app.directive('hciSearch', function($state) {
     return {
         templateUrl: 'js/app/partials/search.html',
-        link: function(scope) {
+        link: function(scope, $elem, $attrs) {
             scope.state = $state;
+            scope.inputSize = $attrs['inputSize'];
+            var input = angular.element($elem.find("input"));
+
+            if(angular.isUndefined(scope.inputSize)) {
+                scope.inputSize = 40;
+            }
+
+            input.attr('size', scope.inputSize);
+
             scope.search = function() {
                 $state.go('topics',{q:scope.q});
             }
