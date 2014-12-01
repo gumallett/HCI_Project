@@ -35,6 +35,10 @@ var getTopicJsonFile = function(topic) {
     return "server/topics/" + topic + ".json";
 };
 
+var getTopicQuizJsonFile = function(topic, quiz) {
+    return "server/topics/" + topic + "/quizzes/"+quiz.title+".json";
+};
+
 module.exports = {
     "getAll": function() {
         return topicsJson;
@@ -64,6 +68,26 @@ module.exports = {
             console.log(err);
             return false;
         }
+
+        return true;
+    },
+    "saveQuiz": function(topicName, quiz) {
+        if(!quiz || !topicName) {
+            return;
+        }
+
+        if(!fs.existsSync("server/topics/" + topicName)) {
+            fs.mkdirSync("server/topics/" + topicName);
+        }
+
+        if(!fs.existsSync("server/topics/" + topicName + "/quizzes")) {
+            fs.mkdirSync("server/topics/" + topicName + "/quizzes");
+        }
+
+        var file = getTopicQuizJsonFile(topicName, quiz);
+        console.log("Saving " + quiz.title + " to " + file);
+
+        fs.writeFileSync(file, JSON.stringify(quiz));
 
         return true;
     }

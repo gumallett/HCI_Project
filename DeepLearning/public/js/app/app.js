@@ -151,7 +151,7 @@ app.directive('hciSearch', function($state) {
     }
 });
 
-app.directive('hciQuiz', function($log) {
+app.directive('hciQuiz', function(TopicResource, $stateParams) {
     return {
         templateUrl: 'js/app/partials/directive/quiz.html',
         scope: {
@@ -180,6 +180,10 @@ app.directive('hciQuiz', function($log) {
 
             $scope.newItem = function() {
                 self.addQuestion(self.newQuestion());
+            };
+
+            $scope.finish = function() {
+                TopicResource.saveQuiz($stateParams['topic'], $scope.quiz);
             };
 
             if(angular.isUndefined($scope.quiz)) {

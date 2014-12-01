@@ -33,6 +33,9 @@ app.factory('TopicResource', function($http) {
         },
         save: function(topicName, topic) {
             return $http.post('/topics/'+topicName, topic);
+        },
+        saveQuiz: function(topicName, quiz) {
+            return $http.post('/topics/' + topicName + '/quizzes', quiz);
         }
     }
 });

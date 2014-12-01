@@ -47,6 +47,18 @@ app.route('/topics/:topic')
         }
     });
 
+app.route('/topics/:topic/quizzes')
+    .post(function(req, res, next) {
+        var success = topics.saveQuiz(req.topic, req.body);
+
+        if(success) {
+            res.send("OK");
+        }
+        else {
+            throw 'Failed to save quiz'
+        }
+    });
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
     var err = new Error('Not Found');
