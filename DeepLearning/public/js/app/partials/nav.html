@@ -6,15 +6,19 @@
             <li><a ng-class="{'active':state.is('topics')}" href="#/topics">Topics</a></li>
             <li><a ng-class="{'active':state.is('about')}" href="#/about">Profile</a></li>
 
-            <li ng-show="state.is('topic') || state.is('topicFlashcards') || state.is('topicQuiz')">
+            <li ng-show="state.is('topic') || state.is('topicFlashcards') || state.is('topicQuiz') || state.is('addTopicQuiz')">
                 <div class="btn-group text-left" dropdown>
                     <button type="button" class="btn btn-default" ng-click="topicHome()"><strong>{{stateParams.topic}}</strong></button>
                     <button type="button" class="btn btn-default dropdown-toggle" dropdown-toggle>
                         <span class="caret"></span>
                     </button>
                     <ul class="dropdown-menu" role="menu">
-                        <li><a ng-href="#/topics/{{stateParams.topic}}/quiz">Quiz</a></li>
+                        <li>
+                            <a ng-href="#/topics/{{stateParams.topic}}/quiz">Quiz</a>
+                        </li>
                         <li><a ng-href="#/topics/{{stateParams.topic}}/flashcards">Flash Cards</a></li>
+                        <li class="divider"></li>
+                        <li><a ng-href="#/topics/{{stateParams.topic}}/quiz/new">New Quiz...</a></li>
                     </ul>
                 </div>
             </li>
@@ -22,7 +26,7 @@
                 <div hci-edit-toggle></div>
             </li>
         </ul>
-        <form ng-show="state.is('topic') || state.is('topicFlashcards') || state.is('topicQuiz')" class="navbar-form navbar-left" role="search">
+        <form ng-show="!state.is('home') && !state.is('topics')" class="navbar-form navbar-left" role="search">
             <div class="form-group" hci-search input-size="20"></div>
         </form>
         <p class="navbar-text navbar-right"><strong>Deep Learning</strong></p>

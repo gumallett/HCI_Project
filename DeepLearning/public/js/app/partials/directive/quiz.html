@@ -1,0 +1,16 @@
+
+<div>
+    <label class="sr-only" for="title">Title</label>
+    <strong><input type="text" class="form-control" id="title" ng-model="quiz.title"/></strong>
+</div>
+
+<form role="form" class="text-left form-horizontal">
+    <br/>
+
+    <div ng-repeat="question in quiz.questions">
+        <div hci-edit-quiz-item question="question" is-editing="$index == quiz.questions.length-1"></div>
+    </div>
+
+    <button class="btn btn-success">Add Item</button><br/><br/>
+    <button class="btn btn-primary">Finish</button>
+</form>

@@ -11,3 +11,7 @@ app.controller('TopicCtrl', function($scope, $rootScope, $stateParams, TopicReso
     $rootScope.flashcardspage = foundTopic.flashcardspage;
     $rootScope.quizpage = foundTopic.quizpage;
 });
+
+app.controller('QuizCtrl', function($scope, $stateParams, TopicResource) {
+
+});

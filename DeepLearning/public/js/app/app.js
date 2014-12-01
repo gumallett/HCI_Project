@@ -75,6 +75,12 @@ app.config(function($stateProvider, $urlRouterProvider, $provide) {
         controller: 'TopicCtrl'
     });
 
+    $stateProvider.state('addTopicQuiz', {
+        url: "/topics/:topic/quiz/new",
+        templateUrl: 'js/app/partials/addquiz.html',
+        controller: 'QuizCtrl'
+    });
+
     // text editor config
     $provide.decorator('taOptions', ['$delegate', function(taOptions) {
         taOptions.toolbar = [
@@ -141,6 +147,64 @@ app.directive('hciSearch', function($state) {
             scope.search = function() {
                 $state.go('topics',{q:scope.q});
             }
+        }
+    }
+});
+
+app.directive('hciQuiz', function($log) {
+    return {
+        templateUrl: 'js/app/partials/directive/quiz.html',
+        scope: {
+            'quiz': '=?'
+        },
+        controller: function($scope) {
+            var self = this;
+
+            this.newAnswer = function() {
+                return {
+                    correct: false,
+                    text: ""
+                };
+            };
+
+            this.newQuestion = function() {
+                return {
+                    answers: [self.newAnswer()]
+                }
+            };
+
+            this.addQuestion = function(question) {
+                $scope.quiz.questions.push(question);
+            };
+
+            if(angular.isUndefined($scope.quiz)) {
+                $scope.quiz = {
+                    title: 'Untitled Quiz',
+                    questions: [self.newQuestion()]
+                };
+            }
+        }
+    }
+});
+
+app.directive('hciEditQuizItem', function($log) {
+    return {
+        templateUrl: 'js/app/partials/directive/editQuizItem.html',
+        require: '^hciQuiz',
+        scope: {
+            question: '=',
+            isEditing: '&'
+        },
+        link: function($scope, $elem, $attrs, controller) {
+            $scope.addAnswer = function() {
+                $scope.question.answers.push(controller.newAnswer());
+            };
+
+            $scope.removeAnswer = function(idx) {
+                $scope.question.answers.splice(idx, 1);
+            };
+
+            $log.log($scope.isEditing());
         }
     }
 });

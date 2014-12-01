@@ -1,0 +1,39 @@
+<div class="panel panel-default">
+    <div class="panel-body">
+        <div class="form-group">
+            <label for="questionTitle" class="col-sm-2 control-label">Question Title</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="questionTitle" ng-model="question.title"/>
+            </div>
+        </div>
+
+        <div class="form-group" ng-repeat="answer in question.answers">
+            <div class="col-sm-7 col-sm-offset-2">
+                <label class="sr-only" for="answer">answer</label>
+                <input type="text" class="form-control" id="answer" ng-model="answer.text" placeholder="answer"/>
+            </div>
+            <div class="col-sm-2">
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" ng-model="answer.correct"/>
+                        Correct Answer
+                    </label>
+                </div>
+            </div>
+            <div class="col-sm-1"><button class="btn btn-danger" ng-click="removeAnswer($index)">X</button></div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-sm-7 col-sm-offset-2">
+                <label class="sr-only" for="newanswer">new answer</label>
+                <input type="text" class="form-control" id="newanswer" placeholder="click to add answer" readonly ng-click="addAnswer()"/>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-sm-8 col-sm-offset-2">
+                <button class="btn btn-success">Done</button>
+            </div>
+        </div>
+    </div>
+</div>
