@@ -169,12 +169,17 @@ app.directive('hciQuiz', function($log) {
 
             this.newQuestion = function() {
                 return {
+                    title: 'Enter a question title',
                     answers: [self.newAnswer()]
-                }
+                };
             };
 
             this.addQuestion = function(question) {
-                $scope.quiz.questions.push(question);
+                $scope.quiz.questions.push(angular.copy(question));
+            };
+
+            $scope.newItem = function() {
+                self.addQuestion(self.newQuestion());
             };
 
             if(angular.isUndefined($scope.quiz)) {
@@ -193,7 +198,7 @@ app.directive('hciEditQuizItem', function($log) {
         require: '^hciQuiz',
         scope: {
             question: '=',
-            isEditing: '&'
+            edit: '&'
         },
         link: function($scope, $elem, $attrs, controller) {
             $scope.addAnswer = function() {
@@ -204,7 +209,15 @@ app.directive('hciEditQuizItem', function($log) {
                 $scope.question.answers.splice(idx, 1);
             };
 
-            $log.log($scope.isEditing());
+            $scope.done = function() {
+                $scope.isEditing = false;
+            };
+
+            $scope.setEditing = function(editing) {
+                $scope.isEditing = editing;
+            };
+
+            $scope.isEditing = $scope.edit();
         }
     }
 });

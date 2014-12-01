@@ -1,4 +1,14 @@
-<div class="panel panel-default">
+<div ng-hide="isEditing">
+    <strong>{{question.title}}</strong>&nbsp;&nbsp;<a href="javascript:void(0);" ng-click="setEditing(true)">Edit</a>
+    <div class="radio" ng-repeat="answer in question.answers">
+        <label>
+            <input type="radio" name="answer" value="{{answer.text}}"/>
+            {{answer.text}}&nbsp;<span ng-show="answer.correct"><strong>*</strong></span>
+        </label>
+    </div>
+</div>
+
+<div class="panel panel-default" ng-show="isEditing">
     <div class="panel-body">
         <div class="form-group">
             <label for="questionTitle" class="col-sm-2 control-label">Question Title</label>
@@ -32,7 +42,7 @@
 
         <div class="form-group">
             <div class="col-sm-8 col-sm-offset-2">
-                <button class="btn btn-success">Done</button>
+                <button class="btn btn-success" ng-click="done()">Done</button>
             </div>
         </div>
     </div>

@@ -8,9 +8,10 @@
     <br/>
 
     <div ng-repeat="question in quiz.questions">
-        <div hci-edit-quiz-item question="question" is-editing="$index == quiz.questions.length-1"></div>
+        <div hci-edit-quiz-item question="question" edit="$index == quiz.questions.length-1"></div>
+        <br/><br/>
     </div>
 
-    <button class="btn btn-success">Add Item</button><br/><br/>
+    <button class="btn btn-success" ng-click="newItem()">Add Item</button><br/><br/>
     <button class="btn btn-primary">Finish</button>
 </form>
