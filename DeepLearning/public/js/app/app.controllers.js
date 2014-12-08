@@ -19,7 +19,6 @@ app.controller('TopicCtrl', function($scope, $rootScope, $state, $stateParams, T
 app.controller('QuizCtrl', function($scope, $state, $stateParams, $log, TopicResource, foundQuiz) {
     $scope.quiz = foundQuiz;
     $scope.submittedAnswers = [];
-    $log.log($scope.quiz);
     $scope.correctAnswers = function() {
         var correctAnswerList = [];
 
@@ -46,11 +45,6 @@ app.controller('QuizCtrl', function($scope, $state, $stateParams, $log, TopicRes
 
     $scope.submit = function() {
         $scope.submitted = true;
-        var form = $scope.quizForm;
-        $log.log(form);
-        $log.log(form.answer);
-        $log.log($scope.submittedAnswers);
-        $log.log($scope.correctAnswers());
     };
 
     $scope.reset = function() {
