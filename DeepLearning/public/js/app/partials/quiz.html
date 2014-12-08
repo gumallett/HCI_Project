@@ -10,15 +10,15 @@
             <span ng-init="$outerIndex = $index"></span>
             <strong>{{question.title}}</strong>
             <div class="form-group">
-                <div ng-class="{'has-success': submitted && submittedAnswers[$index] == correctAnswers()[$index], 'has-error': submitted && submittedAnswers[$index] != correctAnswers()[$index]}">
+                <div ng-class="{'has-success': submitted && (submittedAnswers[$index] == correctAnswers()[$index] || correctAnswers()[$index] === 'none' ), 'has-error': submitted && submittedAnswers[$index] != correctAnswers()[$index] && correctAnswers()[$index] !== 'none'}">
                     <div class="col-sm-10">
                         <div class="radio" ng-repeat="answer in question.answers">
                             <label>
                                 <input type="radio" name="answer{{$outerIndex}}" value="{{$index}}" ng-required="{{answer.required}}" ng-model="submittedAnswers[$outerIndex]"/>
-                                {{answer.text}} <span ng-show="submitted && answer.correct">&nbsp; &nbsp; <-- This was the correct answer</span>
+                                {{answer.text}} <span ng-show="submitted && (answer.correct || correctAnswers()[$outerIndex] === 'none')">&nbsp; &nbsp; <-- This was the correct answer</span>
                             </label>
                         </div>
-                        <span class="help-block" ng-show="submitted && submittedAnswers[$index] != correctAnswers()[$index]"><strong>Answer was incorrect</strong></span>
+                        <span class="help-block" ng-show="submitted && submittedAnswers[$index] != correctAnswers()[$index] && correctAnswers()[$index] !== 'none'"><strong>Answer was incorrect</strong></span>
                     </div>
                 </div>
             </div>
