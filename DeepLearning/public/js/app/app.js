@@ -214,6 +214,7 @@ app.directive('hciQuiz', function(TopicResource, $state, $stateParams) {
             if(angular.isUndefined($scope.quiz)) {
                 $scope.quiz = {
                     title: 'Untitled Quiz',
+                    description: '',
                     questions: [self.newQuestion()]
                 };
             }
