@@ -3,25 +3,30 @@
     <h3>{{quiz.title}}&nbsp;&nbsp; <a href="javascript: void(0);" ng-click="edit()">Edit</a></h3>
     <p>{{quiz.description}}</p>
 
-    <form role="form" class="text-left form-horizontal">
+    <form role="form" class="text-left form-horizontal" name="quizForm" novalidate>
         <br/>
 
         <div ng-repeat="question in quiz.questions">
+            <span ng-init="$outerIndex = $index"></span>
             <strong>{{question.title}}</strong>
             <div class="form-group">
-                <div class="col-sm-10">
-                    <div class="radio" ng-repeat="answer in question.answers">
-                        <label>
-                            <input type="radio" name="answer" value="{{answer.text}}"/>
-                            {{answer.text}}
-                        </label>
+                <div ng-class="{'has-success': submitted && submittedAnswers[$index] == correctAnswers()[$index], 'has-error': submitted && submittedAnswers[$index] != correctAnswers()[$index]}">
+                    <div class="col-sm-10">
+                        <div class="radio" ng-repeat="answer in question.answers">
+                            <label>
+                                <input type="radio" name="answer{{$outerIndex}}" value="{{$index}}" ng-required="{{answer.required}}" ng-model="submittedAnswers[$outerIndex]"/>
+                                {{answer.text}} <span ng-show="submitted && answer.correct">&nbsp; &nbsp; <-- This was the correct answer</span>
+                            </label>
+                        </div>
+                        <span class="help-block" ng-show="submitted && submittedAnswers[$index] != correctAnswers()[$index]"><strong>Answer was incorrect</strong></span>
                     </div>
                 </div>
             </div>
 
             <br/>
         </div>
-        <button class="btn btn-primary">Submit</button>
+        <button class="btn btn-primary" type="submit" ng-click="submit(quizForm)" ng-hide="submitted">Submit</button>
+        <button class="btn btn-primary" type="reset" ng-click="reset()" ng-show="submitted">Reset</button>
     </form>
 </div>
 
