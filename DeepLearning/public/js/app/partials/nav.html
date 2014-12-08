@@ -6,7 +6,7 @@
             <li><a ng-class="{'active':state.is('topics')}" href="#/topics">Topics</a></li>
             <li><a ng-class="{'active':state.is('about')}" href="#/about">Profile</a></li>
 
-            <li ng-show="state.is('topic') || state.is('topicFlashcards') || state.is('topicQuiz') || state.is('addTopicQuiz')">
+            <li ng-show="state.is('topic') || state.is('topicFlashcards') || state.is('topicQuiz') || state.is('topicQuizzes') || state.is('addTopicQuiz')">
                 <div class="btn-group text-left" dropdown>
                     <button type="button" class="btn btn-default" ng-click="topicHome()"><strong>{{stateParams.topic}}</strong></button>
                     <button type="button" class="btn btn-default dropdown-toggle" dropdown-toggle>
@@ -14,7 +14,7 @@
                     </button>
                     <ul class="dropdown-menu" role="menu">
                         <li>
-                            <a ng-href="#/topics/{{stateParams.topic}}/quiz">Quiz</a>
+                            <a ng-href="#/topics/{{stateParams.topic}}/quiz">Quizzes</a>
                         </li>
                         <li><a ng-href="#/topics/{{stateParams.topic}}/flashcards">Flash Cards</a></li>
                         <li class="divider"></li>

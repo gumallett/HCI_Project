@@ -25,6 +25,11 @@ app.param('topic', function(req, res, next, topic) {
     next();
 });
 
+app.param('quiz', function(req, res, next, quiz) {
+    req.quiz = quiz;
+    next();
+});
+
 app.route('/topics/:topic')
     .get(function(req, res, next) {
         var topic = topics.get(req.topic);
@@ -48,8 +53,32 @@ app.route('/topics/:topic')
     });
 
 app.route('/topics/:topic/quizzes')
-    .post(function(req, res, next) {
-        var success = topics.saveQuiz(req.topic, req.body);
+    .get(function(req, res, next) {
+        var quizzes = topics.getTopicQuizzes(req.topic);
+
+        if(quizzes) {
+            res.send(quizzes);
+        }
+        else {
+            next();
+        }
+    });
+
+
+app.route('/topics/:topic/quizzes/:quiz')
+    .get(function (req, res, next) {
+        console.log("Getting quiz: " + req.quiz);
+        var quiz = topics.getTopicQuiz(req.topic, req.quiz);
+
+        if(quiz) {
+            res.send(quiz);
+        }
+        else {
+            next();
+        }
+    })
+    .put(function(req, res, next) {
+        var success = topics.saveQuiz(req.topic, req.body.name, req.body);
 
         if(success) {
             res.send("OK");
@@ -72,6 +101,7 @@ app.use(function(req, res, next) {
 // will print stacktrace
 if (app.get('env') === 'development') {
     app.use(function(err, req, res, next) {
+        console.log(err);
         res.status(err.status || 500);
         res.send(""+err);
     });
@@ -80,6 +110,7 @@ if (app.get('env') === 'development') {
 // production error handler
 // no stacktraces leaked to user
 app.use(function(err, req, res, next) {
+    console.log(err);
     res.status(err.status || 500);
     res.send(err.message);
 });

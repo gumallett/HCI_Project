@@ -1,23 +1,27 @@
-<div style="height: 100%">
-    <iframe id="quizframe" frameborder="0" style="overflow:hidden;" width="100%" ng-src="{{quizpage}}" onLoad="calcHeight();"></iframe>
+
+<div class="text-left jumbotron" ng-hide="quizEditing">
+    <strong style="font-size: 1.5em">{{quiz.title}}&nbsp;&nbsp; <a href="javascript: void(0);" ng-click="edit()">Edit</a></strong>
+
+    <form role="form" class="text-left form-horizontal">
+        <br/>
+
+        <div ng-repeat="question in quiz.questions">
+            <strong>{{question.title}}</strong>
+            <div class="form-group">
+                <div class="col-sm-10">
+                    <div class="radio" ng-repeat="answer in question.answers">
+                        <label>
+                            <input type="radio" name="answer" value="{{answer.text}}"/>
+                            {{answer.text}}
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <br/>
+        </div>
+        <button class="btn btn-primary">Submit</button>
+    </form>
 </div>
 
-<script type="text/javascript">
-    function calcHeight()
-    {
-        //find the height of the internal page
-        var the_height=
-                document.getElementById('quizframe').contentWindow.
-                        document.body.scrollHeight;
-
-        var w = window,
-                d = document,
-                e = d.documentElement,
-                g = d.getElementsByTagName('body')[0],
-                x = w.innerWidth || e.clientWidth || g.clientWidth,
-                y = w.innerHeight|| e.clientHeight|| g.clientHeight;
-
-        //change the height of the iframe
-        document.getElementById('quizframe').height=y-140;
-    }
-</script>
+<div ui-view></div>

@@ -36,6 +36,9 @@ app.config(function($stateProvider, $urlRouterProvider, $provide) {
                 }
 
                 return topic;
+            },
+            foundQuizzes: function() {
+                return [];
             }
         },
         controller: 'TopicCtrl'
@@ -53,14 +56,17 @@ app.config(function($stateProvider, $urlRouterProvider, $provide) {
                 }
 
                 return topic;
+            },
+            foundQuizzes: function() {
+                return [];
             }
         },
         controller: 'TopicCtrl'
     });
 
-    $stateProvider.state('topicQuiz', {
+    $stateProvider.state('topicQuizzes', {
         url: "/topics/:topic/quiz",
-        templateUrl: 'js/app/partials/quiz.html',
+        templateUrl: 'js/app/partials/quizzes.html',
         resolve: {
             foundTopic: function($stateParams, $state, TopicResource) {
                 var topic = TopicResource.getTopic($stateParams['topic']);
@@ -70,15 +76,33 @@ app.config(function($stateProvider, $urlRouterProvider, $provide) {
                 }
 
                 return topic;
+            },
+            foundQuizzes: function($stateParams, $state, TopicResource) {
+                return TopicResource.getQuizzes($stateParams['topic']);
             }
         },
         controller: 'TopicCtrl'
     });
 
+    $stateProvider.state('topicQuiz', {
+        url: "/topics/:topic/quizzes/:quiz",
+        templateUrl: 'js/app/partials/quiz.html',
+        resolve: {
+            foundQuiz: function($stateParams, $state, TopicResource) {
+                return TopicResource.getQuiz($stateParams['topic'], $stateParams['quiz']);
+            }
+        },
+        controller: 'QuizCtrl'
+    });
+
+    $stateProvider.state('topicQuiz.topicQuizEditing', {
+        url: "/edit",
+        template: '<div hci-quiz quiz="quiz"></div>'
+    });
+
     $stateProvider.state('addTopicQuiz', {
         url: "/topics/:topic/quiz/new",
-        templateUrl: 'js/app/partials/addquiz.html',
-        controller: 'QuizCtrl'
+        templateUrl: 'js/app/partials/addquiz.html'
     });
 
     // text editor config
@@ -151,7 +175,7 @@ app.directive('hciSearch', function($state) {
     }
 });
 
-app.directive('hciQuiz', function(TopicResource, $stateParams) {
+app.directive('hciQuiz', function(TopicResource, $state, $stateParams) {
     return {
         templateUrl: 'js/app/partials/directive/quiz.html',
         scope: {
@@ -184,6 +208,7 @@ app.directive('hciQuiz', function(TopicResource, $stateParams) {
 
             $scope.finish = function() {
                 TopicResource.saveQuiz($stateParams['topic'], $scope.quiz);
+                $state.go('topicQuiz', {topic: $stateParams['topic'], quiz: $scope.quiz.name, quizEditing: false}, {reload: true});
             };
 
             if(angular.isUndefined($scope.quiz)) {
