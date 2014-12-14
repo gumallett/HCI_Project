@@ -1,6 +1,6 @@
-var app = angular.module('hci');
+angular.module('hci.services', [])
 
-app.factory('TopicResource', function($http) {
+.factory('TopicResource', function($http) {
 
     return {
         getTopics: function(query) {

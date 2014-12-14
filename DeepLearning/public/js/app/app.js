@@ -1,4 +1,4 @@
-var app = angular.module('hci', ['ngSanitize','ui.router','textAngular','ui.bootstrap']);
+var app = angular.module('hci', ['ngSanitize','ui.router','textAngular','ui.bootstrap','hci.services','hci.quiz','hci.flashcard']);
 
 app.config(function($stateProvider, $urlRouterProvider, $provide) {
     $urlRouterProvider.otherwise("/");
@@ -49,69 +49,6 @@ app.config(function($stateProvider, $urlRouterProvider, $provide) {
         controller: 'TopicCtrl'
     });
 
-    $stateProvider.state('topicFlashcards', {
-        url: "/topics/:topic/flashcards",
-        templateUrl: 'js/app/partials/flashcard/flashcards.html',
-        resolve: {
-            flashcards: function($stateParams, TopicResource) {
-                return TopicResource.getFlashcards($stateParams['topic']);
-            }
-        },
-        controller: 'FlashcardsCtrl'
-    });
-
-    $stateProvider.state('topicFlashcard', {
-        url: "/topics/:topic/flashcards/:flashcard",
-        templateUrl: 'js/app/partials/flashcard/flashcardpage.html',
-        resolve: {
-            foundFlashcards: function($stateParams, $state, TopicResource) {
-                return TopicResource.getFlashcards($stateParams['topic'], $stateParams['flashcard']);
-            }
-        },
-        controller: 'FlashcardCtrl'
-    });
-
-    $stateProvider.state('topicQuizzes', {
-        url: "/topics/:topic/quiz",
-        templateUrl: 'js/app/partials/quiz/quizzes.html',
-        resolve: {
-            foundTopic: function($stateParams, $state, TopicResource) {
-                var topic = TopicResource.getTopic($stateParams['topic']);
-
-                if(angular.isUndefined(topic)) {
-                    throw 'topic not found: '+$stateParams['topic'];
-                }
-
-                return topic;
-            },
-            foundQuizzes: function($stateParams, $state, TopicResource) {
-                return TopicResource.getQuizzes($stateParams['topic']);
-            }
-        },
-        controller: 'TopicCtrl'
-    });
-
-    $stateProvider.state('topicQuiz', {
-        url: "/topics/:topic/quizzes/:quiz",
-        templateUrl: 'js/app/partials/quiz/quiz.html',
-        resolve: {
-            foundQuiz: function($stateParams, $state, TopicResource) {
-                return TopicResource.getQuiz($stateParams['topic'], $stateParams['quiz']);
-            }
-        },
-        controller: 'QuizCtrl'
-    });
-
-    $stateProvider.state('topicQuiz.topicQuizEditing', {
-        url: "/edit",
-        template: '<div hci-quiz quiz="quiz"></div>'
-    });
-
-    $stateProvider.state('addTopicQuiz', {
-        url: "/topics/:topic/quiz/new",
-        templateUrl: 'js/app/partials/quiz/addquiz.html'
-    });
-
     // text editor config
     $provide.decorator('taOptions', ['$delegate', function(taOptions) {
         taOptions.toolbar = [
@@ -121,6 +58,22 @@ app.config(function($stateProvider, $urlRouterProvider, $provide) {
 
         return taOptions;
     }]);
+});
+
+app.controller('TopicsCtrl', function($scope, $stateParams, foundTopics) {
+    $scope.foundTopics = foundTopics;
+    $scope.q = $stateParams.q;
+});
+
+app.controller('TopicCtrl', function($scope, $rootScope, $state, $stateParams, TopicResource, foundTopic, foundQuizzes) {
+    $rootScope.topic = foundTopic;
+    $rootScope.editMode = false;
+    $rootScope.flashcardspage = foundTopic.flashcardspage;
+    $rootScope.quizpage = foundTopic.quizpage;
+
+    $scope.$state = $state;
+    $scope.quizzes = foundQuizzes;
+    $scope.topicName = $stateParams['topic'];
 });
 
 app.run(function($rootScope, $log) {
@@ -182,91 +135,3 @@ app.directive('hciSearch', function($state) {
     }
 });
 
-app.directive('hciQuiz', function(TopicResource, $state, $stateParams) {
-    return {
-        templateUrl: 'js/app/partials/directive/quiz.html',
-        scope: {
-            'quiz': '=?'
-        },
-        controller: function($scope) {
-            var self = this;
-
-            this.newAnswer = function() {
-                return {
-                    correct: false,
-                    text: ""
-                };
-            };
-
-            this.newQuestion = function() {
-                return {
-                    title: 'Enter a question title',
-                    answers: [self.newAnswer()]
-                };
-            };
-
-            this.addQuestion = function(question) {
-                $scope.quiz.questions.push(angular.copy(question));
-            };
-
-            $scope.newItem = function() {
-                self.addQuestion(self.newQuestion());
-            };
-
-            $scope.finish = function() {
-                TopicResource.saveQuiz($stateParams['topic'], $scope.quiz);
-                $state.go('topicQuiz', {topic: $stateParams['topic'], quiz: $scope.quiz.name, quizEditing: false}, {reload: true});
-            };
-
-            if(angular.isUndefined($scope.quiz)) {
-                $scope.quiz = {
-                    title: 'Untitled Quiz',
-                    description: '',
-                    questions: [self.newQuestion()]
-                };
-            }
-        }
-    }
-});
-
-app.directive('hciEditQuizItem', function($log) {
-    return {
-        templateUrl: 'js/app/partials/directive/editQuizItem.html',
-        require: '^hciQuiz',
-        scope: {
-            question: '=',
-            edit: '&'
-        },
-        link: function($scope, $elem, $attrs, controller) {
-            $scope.addAnswer = function() {
-                $scope.question.answers.push(controller.newAnswer());
-            };
-
-            $scope.removeAnswer = function(idx) {
-                $scope.question.answers.splice(idx, 1);
-            };
-
-            $scope.done = function() {
-                $scope.isEditing = false;
-            };
-
-            $scope.setEditing = function(editing) {
-                $scope.isEditing = editing;
-            };
-
-            $scope.isEditing = $scope.edit();
-        }
-    }
-});
-
-app.directive('hciFlashCard', function() {
-    return {
-        templateUrl: 'js/app/partials/directive/flashcard.html',
-        scope: {
-            flashcard: '=hciFlashCard'
-        },
-        link: function($scope, $elem, $attrs, controller) {
-
-        }
-    }
-});
