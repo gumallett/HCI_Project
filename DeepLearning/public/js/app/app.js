@@ -3,10 +3,10 @@ var app = angular.module('hci', ['ngSanitize','ui.router','textAngular','ui.boot
 app.config(function($stateProvider, $urlRouterProvider, $provide) {
     $urlRouterProvider.otherwise("/");
 
-    $stateProvider.state('home', {
+    /*$stateProvider.state('home', {
         url: "/",
         templateUrl: 'js/app/partials/home.html'
-    });
+    });*/
 
     $stateProvider.state('about', {
         url: "/about",
@@ -14,7 +14,7 @@ app.config(function($stateProvider, $urlRouterProvider, $provide) {
     });
 
     $stateProvider.state('topics', {
-        url: "/topics?q",
+        url: "/?q",
         templateUrl: 'js/app/partials/topics.html',
         resolve: {
             foundTopics: function($stateParams, TopicResource) {
@@ -48,20 +48,22 @@ app.config(function($stateProvider, $urlRouterProvider, $provide) {
         url: "/topics/:topic/flashcards",
         templateUrl: 'js/app/partials/flashcards.html',
         resolve: {
-            foundTopic: function($stateParams, $state, TopicResource) {
-                var topic = TopicResource.getTopic($stateParams['topic']);
-
-                if(angular.isUndefined(topic)) {
-                    throw 'topic not found: '+$stateParams['topic'];
-                }
-
-                return topic;
-            },
-            foundQuizzes: function() {
-                return [];
+            flashcards: function($stateParams, TopicResource) {
+                return TopicResource.getFlashcards($stateParams['topic']);
             }
         },
-        controller: 'TopicCtrl'
+        controller: 'FlashcardsCtrl'
+    });
+
+    $stateProvider.state('topicFlashcard', {
+        url: "/topics/:topic/flashcards/:flashcard",
+        templateUrl: 'js/app/partials/flashcardpage.html',
+        resolve: {
+            foundFlashcards: function($stateParams, $state, TopicResource) {
+                return TopicResource.getFlashcards($stateParams['topic'], $stateParams['flashcard']);
+            }
+        },
+        controller: 'FlashcardCtrl'
     });
 
     $stateProvider.state('topicQuizzes', {
@@ -248,6 +250,18 @@ app.directive('hciEditQuizItem', function($log) {
             };
 
             $scope.isEditing = $scope.edit();
+        }
+    }
+});
+
+app.directive('hciFlashCard', function() {
+    return {
+        templateUrl: 'js/app/partials/directive/flashcard.html',
+        scope: {
+            flashcard: '=hciFlashCard'
+        },
+        link: function($scope, $elem, $attrs, controller) {
+
         }
     }
 });

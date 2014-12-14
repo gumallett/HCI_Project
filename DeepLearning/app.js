@@ -30,6 +30,11 @@ app.param('quiz', function(req, res, next, quiz) {
     next();
 });
 
+app.param('flashcard', function(req, res, next, flashcard) {
+    req.flashcard = flashcard;
+    next();
+});
+
 app.route('/topics/:topic')
     .get(function(req, res, next) {
         var topic = topics.get(req.topic);
@@ -64,6 +69,18 @@ app.route('/topics/:topic/quizzes')
         }
     });
 
+app.route('/topics/:topic/flashcards')
+    .get(function(req, res, next) {
+        var flashcards = topics.getTopicFlashcards(req.topic);
+
+        if(flashcards) {
+            res.send(flashcards);
+        }
+        else {
+            next();
+        }
+    });
+
 
 app.route('/topics/:topic/quizzes/:quiz')
     .get(function (req, res, next) {
@@ -86,6 +103,22 @@ app.route('/topics/:topic/quizzes/:quiz')
         else {
             throw 'Failed to save quiz'
         }
+    });
+
+app.route('/topics/:topic/flashcards/:flashcard')
+    .get(function (req, res, next) {
+        console.log("Getting flashcards: " + req.flashcard);
+        var cards = topics.getTopicFlashcard(req.topic, req.flashcard);
+
+        if(cards) {
+            res.send(cards);
+        }
+        else {
+            next();
+        }
+    })
+    .put(function(req, res, next) {
+        next();
     });
 
 // catch 404 and forward to error handler

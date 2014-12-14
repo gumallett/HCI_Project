@@ -15,7 +15,10 @@
                         <div class="radio" ng-repeat="answer in question.answers">
                             <label>
                                 <input type="radio" name="answer{{$outerIndex}}" value="{{$index}}" ng-required="{{answer.required}}" ng-model="submittedAnswers[$outerIndex]"/>
-                                {{answer.text}} <span ng-show="submitted && (answer.correct || correctAnswers()[$outerIndex] === 'none')">&nbsp; &nbsp; <-- This was the correct answer</span>
+                                {{answer.text}}
+                                <span ng-show="submitted && (answer.correct || correctAnswers()[$outerIndex] === 'none')">
+                                    <strong>&nbsp;&nbsp;<--&nbsp;This was the correct answer</strong>
+                                </span>
                             </label>
                         </div>
                         <span class="help-block" ng-show="submitted && submittedAnswers[$index] != correctAnswers()[$index] && correctAnswers()[$index] !== 'none'"><strong>Answer was incorrect</strong></span>

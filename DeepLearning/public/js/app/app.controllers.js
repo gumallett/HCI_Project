@@ -16,6 +16,15 @@ app.controller('TopicCtrl', function($scope, $rootScope, $state, $stateParams, T
     $scope.topicName = $stateParams['topic'];
 });
 
+app.controller('FlashcardCtrl', function($scope, foundFlashcards) {
+    $scope.flashcards = foundFlashcards;
+});
+
+app.controller('FlashcardsCtrl', function($scope, $stateParams, flashcards) {
+    $scope.flashcards = flashcards;
+    $scope.topicName = $stateParams['topic'];
+});
+
 app.controller('QuizCtrl', function($scope, $state, $stateParams, $log, TopicResource, foundQuiz) {
     $scope.quiz = foundQuiz;
     $scope.submittedAnswers = [];

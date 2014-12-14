@@ -1,0 +1,90 @@
+
+div.flip-container {
+
+    margin-top: 35px;
+    -webkit-perspective : 680px;
+    -moz-perspective: 680px;
+    -ms-perspective: 680px;
+    -o-perspective: 680px;
+    perspective: 680px;
+}
+.flip-container:hover .back, .flip-container.hover .back  {
+    -webkit-transform:rotateY(0deg);
+    -moz-transform:rotateY(0deg);
+    -ms-transform:rotateY(0deg);
+    -o-transform:rotateY(0deg);
+    transform: rotateY(0deg);
+}
+
+.flip-container:hover .front, .flip-container.hover .front  {
+    -webkit-transform:rotateY(180deg);
+    -moz-transform:rotateY(180deg);
+    -ms-transform:rotateY(180deg);
+    -o-transform:rotateY(180deg);
+    transform: rotateY(180deg);
+    filter:filph();
+
+}
+
+.flip-container, .front .back {
+    height:290px;
+}
+
+.flipper {
+    -webkit-transform-style: preserve-3d;
+    -moz-transform-style: preserve-3d;
+    -ms-transform-style: preserve-3d;
+    -o-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+    position: relative;
+}
+
+.front, .back {
+    -webkit-transform-style: preserve-3d;
+    -moz-transform-style: preserve-3d;
+    -ms-transform-style: preserve-3d;
+    -o-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+    -webkit-backface-visibility: hidden;
+    -moz-backface-visibility: hidden;
+    -ms-backface-visibility: hidden;
+    -o-backface-visibility: hidden;
+    backface-visibility: hidden;
+    -webkit-transition: 2.0s;
+    -moz-transition: 2.0s;
+    -ms-transition: 2.0s;
+    -o-transition: 2.0s;
+    transition: 2.0s;
+
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.front {
+    z-index:2;
+    -webkit-transform: rotateY(0deg);
+    -moz-transform: rotateY(0deg);
+    -ms-transform: rotateY(0deg);
+    -o-transform: rotateY(0deg);
+    transform: rotateY(0deg);
+
+
+    border: 2px solid;
+    border-radius: 25px;
+
+}
+
+.back {
+    z-index:1;
+    -webkit-transform: rotateY(-180deg);
+    -moz-transform: rotateY(-180deg);
+    -ms-transform: rotateY(-180deg);
+    -o-transform: rotateY(-180deg);
+    transform: rotateY(-180deg);
+    filter:filph();
+
+
+    border: 2px solid;
+    border-radius: 25px;
+}

@@ -36,6 +36,17 @@ app.factory('TopicResource', function($http) {
                 return quizJson.data;
             });
         },
+        getFlashcards: function(topic, flashcardName) {
+            if(!flashcardName) {
+                return $http.get('/topics/'+topic+"/flashcards").then(function(fcJson) {
+                    return fcJson.data;
+                });
+            }
+
+            return $http.get('/topics/'+topic+"/flashcards"+"/"+flashcardName+".json").then(function(fcJson) {
+                return fcJson.data.flashcards;
+            });
+        },
         getTopic: function(topic) {
             return $http.get('/topics/'+topic).then(function(topicJson) {
                 return topicJson.data;

@@ -107,6 +107,39 @@ module.exports = {
 
         return null;
     },
+    "getTopicFlashcard": function(topic, flashcard) {
+        var path = getTopicPath(topic) + "/flashcards" + "/" + flashcard;
+        console.log("Getting flashcards: " + path);
+
+        if(fs.existsSync(path)) {
+            return JSON.parse(fs.readFileSync(path, 'utf-8'));
+        }
+
+        return null;
+    },
+    "getTopicFlashcards": function(topic) {
+        var path = getTopicPath(topic) + "/flashcards";
+        console.log("Getting flashcards: " + path);
+
+        if(!fs.existsSync(getTopicPath(topic))) {
+            return null;
+        }
+
+        if(fs.existsSync(path)) {
+            var names = fs.readdirSync(path);
+            var arr = [];
+
+            names.forEach(function(val) {
+                console.log(val);
+                var quizJson = JSON.parse(fs.readFileSync(path + "/" + val, 'utf-8'));
+                arr.push(quizJson);
+            });
+
+            return arr;
+        }
+
+        return [];
+    },
     "saveQuiz": function(topicName, quizName, quiz) {
         console.log("saving quiz, topic: "+topicName+" "+" quizName: "+ quizName, " quiz: "+JSON.stringify(quiz));
 
