@@ -51,7 +51,7 @@ app.config(function($stateProvider, $urlRouterProvider, $provide) {
 
     $stateProvider.state('topicFlashcards', {
         url: "/topics/:topic/flashcards",
-        templateUrl: 'js/app/partials/flashcards.html',
+        templateUrl: 'js/app/partials/flashcard/flashcards.html',
         resolve: {
             flashcards: function($stateParams, TopicResource) {
                 return TopicResource.getFlashcards($stateParams['topic']);
@@ -62,7 +62,7 @@ app.config(function($stateProvider, $urlRouterProvider, $provide) {
 
     $stateProvider.state('topicFlashcard', {
         url: "/topics/:topic/flashcards/:flashcard",
-        templateUrl: 'js/app/partials/flashcardpage.html',
+        templateUrl: 'js/app/partials/flashcard/flashcardpage.html',
         resolve: {
             foundFlashcards: function($stateParams, $state, TopicResource) {
                 return TopicResource.getFlashcards($stateParams['topic'], $stateParams['flashcard']);
@@ -73,7 +73,7 @@ app.config(function($stateProvider, $urlRouterProvider, $provide) {
 
     $stateProvider.state('topicQuizzes', {
         url: "/topics/:topic/quiz",
-        templateUrl: 'js/app/partials/quizzes.html',
+        templateUrl: 'js/app/partials/quiz/quizzes.html',
         resolve: {
             foundTopic: function($stateParams, $state, TopicResource) {
                 var topic = TopicResource.getTopic($stateParams['topic']);
@@ -93,7 +93,7 @@ app.config(function($stateProvider, $urlRouterProvider, $provide) {
 
     $stateProvider.state('topicQuiz', {
         url: "/topics/:topic/quizzes/:quiz",
-        templateUrl: 'js/app/partials/quiz.html',
+        templateUrl: 'js/app/partials/quiz/quiz.html',
         resolve: {
             foundQuiz: function($stateParams, $state, TopicResource) {
                 return TopicResource.getQuiz($stateParams['topic'], $stateParams['quiz']);
@@ -109,7 +109,7 @@ app.config(function($stateProvider, $urlRouterProvider, $provide) {
 
     $stateProvider.state('addTopicQuiz', {
         url: "/topics/:topic/quiz/new",
-        templateUrl: 'js/app/partials/addquiz.html'
+        templateUrl: 'js/app/partials/quiz/addquiz.html'
     });
 
     // text editor config
