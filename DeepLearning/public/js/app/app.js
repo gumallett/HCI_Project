@@ -13,6 +13,11 @@ app.config(function($stateProvider, $urlRouterProvider, $provide) {
         templateUrl: 'js/app/partials/about.html'
     });
 
+    $stateProvider.state('help', {
+        url: "/help",
+        templateUrl: 'js/app/partials/help.html'
+    });
+
     $stateProvider.state('topics', {
         url: "/?q",
         templateUrl: 'js/app/partials/topics.html',
