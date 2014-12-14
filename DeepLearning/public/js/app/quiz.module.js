@@ -5,28 +5,19 @@ quiz.config(function($stateProvider) {
         url: "/topics/:topic/quiz",
         templateUrl: 'js/app/partials/quiz/quizzes.html',
         resolve: {
-            foundTopic: function($stateParams, $state, TopicResource) {
-                var topic = TopicResource.getTopic($stateParams['topic']);
-
-                if(angular.isUndefined(topic)) {
-                    throw 'topic not found: '+$stateParams['topic'];
-                }
-
-                return topic;
-            },
-            foundQuizzes: function($stateParams, $state, TopicResource) {
-                return TopicResource.getQuizzes($stateParams['topic']);
+            foundQuizzes: function($stateParams, $state, QuizResource) {
+                return QuizResource.getQuizzes($stateParams['topic']);
             }
         },
-        controller: 'TopicCtrl'
+        controller: 'QuizzesCtrl'
     });
 
     $stateProvider.state('topicQuiz', {
         url: "/topics/:topic/quizzes/:quiz",
         templateUrl: 'js/app/partials/quiz/quiz.html',
         resolve: {
-            foundQuiz: function($stateParams, $state, TopicResource) {
-                return TopicResource.getQuiz($stateParams['topic'], $stateParams['quiz']);
+            foundQuiz: function($stateParams, $state, QuizResource) {
+                return QuizResource.getQuiz($stateParams['topic'], $stateParams['quiz']);
             }
         },
         controller: 'QuizCtrl'
@@ -43,7 +34,13 @@ quiz.config(function($stateProvider) {
     });
 });
 
-quiz.controller('QuizCtrl', function($scope, $state, $stateParams, $log, TopicResource, foundQuiz) {
+quiz.controller('QuizzesCtrl', function($scope, $state, $stateParams, foundQuizzes) {
+    $scope.$state = $state;
+    $scope.quizzes = foundQuizzes;
+    $scope.topicName = $stateParams['topic'];
+});
+
+quiz.controller('QuizCtrl', function($scope, $state, $stateParams, foundQuiz) {
     $scope.quiz = foundQuiz;
     $scope.submittedAnswers = [];
     $scope.correctAnswers = function() {
@@ -80,7 +77,7 @@ quiz.controller('QuizCtrl', function($scope, $state, $stateParams, $log, TopicRe
     };
 });
 
-quiz.directive('hciQuiz', function(TopicResource, $state, $stateParams) {
+quiz.directive('hciQuiz', function(QuizResource, $state, $stateParams) {
     return {
         templateUrl: 'js/app/partials/directive/quiz.html',
         scope: {
@@ -112,7 +109,7 @@ quiz.directive('hciQuiz', function(TopicResource, $state, $stateParams) {
             };
 
             $scope.finish = function() {
-                TopicResource.saveQuiz($stateParams['topic'], $scope.quiz);
+                QuizResource.saveQuiz($stateParams['topic'], $scope.quiz);
                 $state.go('topicQuiz', {topic: $stateParams['topic'], quiz: $scope.quiz.name, quizEditing: false}, {reload: true});
             };
 

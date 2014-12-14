@@ -5,8 +5,8 @@ flashcard.config(function($stateProvider) {
         url: "/topics/:topic/flashcards",
         templateUrl: 'js/app/partials/flashcard/flashcards.html',
         resolve: {
-            flashcards: function($stateParams, TopicResource) {
-                return TopicResource.getFlashcards($stateParams['topic']);
+            flashcards: function($stateParams, FlashcardResource) {
+                return FlashcardResource.getFlashcards($stateParams['topic']);
             }
         },
         controller: 'FlashcardsCtrl'
@@ -16,8 +16,8 @@ flashcard.config(function($stateProvider) {
         url: "/topics/:topic/flashcards/:flashcard",
         templateUrl: 'js/app/partials/flashcard/flashcardpage.html',
         resolve: {
-            foundFlashcards: function($stateParams, $state, TopicResource) {
-                return TopicResource.getFlashcards($stateParams['topic'], $stateParams['flashcard']);
+            foundFlashcards: function($stateParams, $state, FlashcardResource) {
+                return FlashcardResource.getFlashcards($stateParams['topic'], $stateParams['flashcard']);
             }
         },
         controller: 'FlashcardCtrl'

@@ -68,12 +68,6 @@ app.controller('TopicsCtrl', function($scope, $stateParams, foundTopics) {
 app.controller('TopicCtrl', function($scope, $rootScope, $state, $stateParams, TopicResource, foundTopic, foundQuizzes) {
     $rootScope.topic = foundTopic;
     $rootScope.editMode = false;
-    $rootScope.flashcardspage = foundTopic.flashcardspage;
-    $rootScope.quizpage = foundTopic.quizpage;
-
-    $scope.$state = $state;
-    $scope.quizzes = foundQuizzes;
-    $scope.topicName = $stateParams['topic'];
 });
 
 app.run(function($rootScope, $log) {
