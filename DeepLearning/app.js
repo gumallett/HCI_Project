@@ -118,7 +118,14 @@ app.route('/topics/:topic/flashcards/:flashcard')
         }
     })
     .put(function(req, res, next) {
-        next();
+        var success = topics.saveFlashcards(req.topic, req.body.name, req.body);
+
+        if(success) {
+            res.send("OK");
+        }
+        else {
+            throw 'Failed to save flashcards'
+        }
     });
 
 // catch 404 and forward to error handler

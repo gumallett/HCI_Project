@@ -43,6 +43,10 @@ var getTopicQuizJsonFile = function(topic, quizName) {
     return "server/topics/" + topic + "/quizzes/"+quizName+".json";
 };
 
+var getTopicFlashcardJsonFile = function(topic, name) {
+    return "server/topics/" + topic + "/flashcards/"+name+".json";
+};
+
 module.exports = {
     "getAll": function() {
         return topicsJson;
@@ -139,6 +143,29 @@ module.exports = {
         }
 
         return [];
+    },
+    "saveFlashcards": function(topicName, flashcardName, flashcard) {
+        console.log("saving flashcard, topic: "+topicName+" "+" flashcardName: "+ flashcardName, " flashcard: "+JSON.stringify(flashcard));
+
+        if(!flashcard || !topicName || !flashcardName) {
+            return;
+        }
+
+        if(!fs.existsSync("server/topics/" + topicName)) {
+            fs.mkdirSync("server/topics/" + topicName);
+        }
+
+        if(!fs.existsSync("server/topics/" + topicName + "/flashcards")) {
+            fs.mkdirSync("server/topics/" + topicName + "/flashcards");
+        }
+
+        var file = getTopicFlashcardJsonFile(topicName, flashcardName);
+        console.log("Saving " + flashcard.title + " to " + file);
+        flashcard.name = flashcardName;
+
+        fs.writeFileSync(file, JSON.stringify(flashcard));
+
+        return true;
     },
     "saveQuiz": function(topicName, quizName, quiz) {
         console.log("saving quiz, topic: "+topicName+" "+" quizName: "+ quizName, " quiz: "+JSON.stringify(quiz));

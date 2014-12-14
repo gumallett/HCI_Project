@@ -1,6 +1,11 @@
 
+<div class="row text-left">
+    <button ng-hide="editPage" class="btn btn-primary" ng-click="edit(true)">Edit</button>
+    <button ng-show="editPage" class="btn btn-primary" ng-click="edit(false)">Done</button>
+    <button ng-show="editPage" class="btn btn-success" ng-click="addNew()">Add</button>
+</div>
 <div class="row">
-    <div class="col-xs-6" ng-repeat="flashcard in flashcards">
-        <div hci-flash-card="flashcard"></div>
+    <div class="col-xs-6" ng-repeat="flashcard in flashcards.flashcards">
+        <div hci-flash-card="flashcard" hci-flash-card-idx="{{$index}}" hci-flash-card-edit="!flashcard.front && !flashcard.back" edit-page="editPage"></div>
     </div>
 </div>

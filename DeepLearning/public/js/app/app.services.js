@@ -76,8 +76,11 @@ angular.module('hci.services', [])
                 }
 
                 return $http.get('/topics/'+topic+"/flashcards"+"/"+flashcardName+".json").then(function(fcJson) {
-                    return fcJson.data.flashcards;
+                    return fcJson.data;
                 });
+            },
+            saveFlashcards: function(topicName, flashcards) {
+                return $http.put('/topics/' + topicName + '/flashcards/'+flashcards.name+'.json', flashcards);
             }
         }
     });

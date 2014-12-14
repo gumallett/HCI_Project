@@ -123,7 +123,15 @@ app.directive('hciSearch', function($state) {
             input.attr('size', scope.inputSize);
 
             scope.search = function() {
-                $state.go('topics',{q:scope.q});
+                if(scope.q && scope.q.indexOf('flashcard') != -1) {
+                    $state.go('topicFlashcards', {topic: 'robotics'});
+                }
+                else if(scope.q && scope.q.indexOf('quiz') != -1) {
+                    $state.go('topicQuizzes', {topic: 'robotics'});
+                }
+                else {
+                    $state.go('topics',{q:scope.q});
+                }
             }
         }
     }
