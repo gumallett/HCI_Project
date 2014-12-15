@@ -1,6 +1,7 @@
 
 div.flip-container {
-
+    width: 370px;
+    max-width:370px;
     margin-top: 35px;
     -webkit-perspective : 680px;
     -moz-perspective: 680px;

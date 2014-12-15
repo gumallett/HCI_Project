@@ -10,7 +10,7 @@
             <span ng-init="$outerIndex = $index"></span>
             <strong>{{question.title}}</strong>
             <div class="form-group">
-                <div ng-class="{'has-success': submitted && (submittedAnswers[$index] == correctAnswers()[$index] || correctAnswers()[$index] === 'none' ), 'has-error': submitted && submittedAnswers[$index] != correctAnswers()[$index] && correctAnswers()[$index] !== 'none'}">
+                <div ng-class="{'has-success': submitted && isCorrect($index), 'has-error': submitted && !isCorrect($index)}">
                     <div class="col-sm-10">
                         <div class="radio" ng-repeat="answer in question.answers">
                             <label>
@@ -28,8 +28,10 @@
 
             <br/>
         </div>
+        <p ng-show="submitted">Score: {{getNumCorrect()}}/{{quiz.questions.length}}</p>
         <button class="btn btn-primary" type="submit" ng-click="submit(quizForm)" ng-hide="submitted">Submit</button>
         <button class="btn btn-primary" type="reset" ng-click="reset()" ng-show="submitted">Reset</button>
+
     </form>
 </div>
 

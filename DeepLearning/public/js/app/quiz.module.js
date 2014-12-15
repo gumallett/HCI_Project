@@ -75,6 +75,22 @@ quiz.controller('QuizCtrl', function($scope, $state, $stateParams, foundQuiz) {
         $scope.submitted = false;
         $scope.submittedAnswers = [];
     };
+
+    $scope.isCorrect = function($index) {
+        return $scope.submittedAnswers[$index] == $scope.correctAnswers()[$index] || $scope.correctAnswers()[$index] === 'none';
+    };
+
+    $scope.getNumCorrect = function() {
+        var count = 0;
+
+        angular.forEach($scope.submittedAnswers, function(val, idx) {
+            if($scope.isCorrect(idx)) {
+                count++;
+            }
+        });
+
+        return count;
+    }
 });
 
 quiz.directive('hciQuiz', function(QuizResource, $state, $stateParams) {
