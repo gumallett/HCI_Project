@@ -21,7 +21,7 @@
                                 </span>
                             </label>
                         </div>
-                        <span class="help-block" ng-show="submitted && submittedAnswers[$index] != correctAnswers()[$index] && correctAnswers()[$index] !== 'none'"><strong>Answer was incorrect</strong></span>
+                        <span class="help-block" ng-show="submitted && !isCorrect($index)"><strong>Answer was incorrect</strong></span>
                     </div>
                 </div>
             </div>
