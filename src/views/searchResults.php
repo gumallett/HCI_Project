@@ -1,2 +1,10 @@
+
+<?php include 'search.php' ?>
+
 <h1>Search Results:</h1>
-<p><?php echo $this->terms ?></p>
+
+<ul>
+<?php foreach($this->results as $result) { ?>
+    <li><?php echo $result->getName() ?></li>
+<?php } ?>
+</ul>

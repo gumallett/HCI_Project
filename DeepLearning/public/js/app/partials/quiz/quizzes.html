@@ -1,0 +1,12 @@
+<div class="text-left jumbotron">
+    <a class="btn btn-primary" ng-href="#/topics/{{topicName}}/quiz/new">Create New Quiz</a>
+
+    <br/><br/>
+
+    <h2>Existing Quizzes</h2>
+    <ul>
+        <li ng-repeat="quiz in quizzes">
+            <a ng-href="#/topics/{{topicName}}/quizzes/{{quiz.name}}">{{quiz.title}}</a>
+        </li>
+    </ul>
+</div>

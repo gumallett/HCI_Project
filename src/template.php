@@ -3,6 +3,7 @@
 <html lang="en">
    <head>
       <meta name="viewport" content="width=device-width, initial-scale=1">
+      <meta charset="UTF-8">
       <!-- Bootstrap CSS -->
       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
       <!-- Optional bootstrap CSS theme -->
@@ -14,6 +15,14 @@
    </head>
 
    <body>
+
+   <div class="container-fluid pull-left">
+       <ul class="nav nav-pills nav-stacked">
+           <li class="<?php echo $this->navClass == 'home' ? 'active' : '' ?>"><a href="/">Home</a></li>
+           <li class="<?php echo $this->navClass == 'browse' ? 'active' : '' ?>"><a href="#">Browse</a></li>
+       </ul>
+   </div>
+
       <div class="container">
        <?php include $this->content; ?>
       </div>

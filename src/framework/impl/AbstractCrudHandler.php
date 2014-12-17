@@ -3,6 +3,7 @@
 namespace framework\impl;
 
 use framework\ICrudHandler;
+use framework\util\Logger;
 use framework\util\RestRequest;
 use framework\util\Http;
 
@@ -13,7 +14,12 @@ abstract class AbstractCrudHandler extends Handler implements ICrudHandler {
 
       switch(self::getMethod($request)) {
          case 'GET':
-            if(count($request->getParts()) == 2) {
+            Logger::log($this->getRouteArgs());
+            if(count($this->getRouteArgs()) > 0) {
+               call_user_func_array(array($this, 'index'), $this->getRouteArgs());
+               break;
+            }
+            else if(count($request->getParts()) == 2) {
                $idx = $request->getPart(1);
                if(strlen(trim($idx)) > 0) {
                   $this->index($idx);
@@ -68,6 +74,27 @@ abstract class AbstractCrudHandler extends Handler implements ICrudHandler {
 
       parent::process();
    }
+
+    /**
+     * Mapped to a http GET /{handler}. E.g: GET /home will be mapped to HomeHandler.php::index()
+     * @param null $id
+     * @return mixed
+     */
+    public function index($id = null) {
+    }
+
+    /**
+     * Mapped to a http POST /{handler}. E.g: POST /home will be mapped to HomeHandler.php::create()
+     * @return mixed If a string, a redirect will be automatically issued to /{string}. Use this to redirect after a post. Otherwise return null.
+     */
+    public function create() {
+    }
+
+    public function update($id) {
+    }
+
+    public function delete($id) {
+    }
 
    protected function onSuccess($success) {
       Http::sendRedirect($success);

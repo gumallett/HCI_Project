@@ -1,0 +1,20 @@
+
+<div>
+    <label class="sr-only" for="title">Title</label>
+    <strong><input type="text" class="form-control input-lg" id="title" ng-model="quiz.title"/></strong>
+    <br/>
+    <label class="sr-only" for="description">Description</label>
+    <input type="text" class="form-control" id="description" ng-model="quiz.description" placeholder="Description"/>
+</div>
+
+<form role="form" class="text-left form-horizontal">
+    <br/>
+
+    <div ng-repeat="question in quiz.questions">
+        <div hci-edit-quiz-item question="question" edit="$index == quiz.questions.length-1"></div>
+        <br/><br/>
+    </div>
+
+    <button class="btn btn-success" ng-click="newItem()">Add Item</button><br/><br/>
+    <button class="btn btn-primary" ng-click="finish()">Finish</button>
+</form>

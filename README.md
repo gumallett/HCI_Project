@@ -3,6 +3,9 @@ Getting Started
 
 php composer.phar install
 
+cd src/framework
+php ../../composer.phar install
+
 Run a local development server:
 ------------------------
 

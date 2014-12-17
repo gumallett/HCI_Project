@@ -1,0 +1,12 @@
+<div class="text-left jumbotron">
+    <a class="btn btn-primary" ng-href="#/topics/{{topicName}}/flashcards/new">Create New Flashcards</a>
+
+    <br/><br/>
+
+    <h2>Existing Flashcards</h2>
+    <ul>
+        <li ng-repeat="fc in flashcards">
+            <a ng-href="#/topics/{{topicName}}/flashcards/{{fc.name}}">{{fc.title}}</a>
+        </li>
+    </ul>
+</div>

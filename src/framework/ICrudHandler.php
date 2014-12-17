@@ -6,10 +6,9 @@ interface ICrudHandler extends IRequestHandler {
 
    /**
     * Mapped to a http GET /{handler}. E.g: GET /home will be mapped to HomeHandler.php::index()
-    * @param null $id
     * @return mixed
     */
-   public function index($id = null);
+   public function index();
 
    /**
     * Mapped to a http POST /{handler}. E.g: POST /home will be mapped to HomeHandler.php::create()

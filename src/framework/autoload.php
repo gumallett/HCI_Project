@@ -6,8 +6,12 @@ function framework_load($class) {
    require_once $prefix . $class . '.php';
 }
 
+framework_load('vendor\symfony\yaml\Symfony\Component\Yaml\Parser');
 framework_load('util\Logger');
 framework_load('util\Http');
+framework_load('util\Util');
+framework_load('util\RouteMatcher');
+framework_load('util\RouteInfo');
 framework_load('util\RestRequest');
 framework_load('util\HTMLTemplate');
 

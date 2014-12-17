@@ -1,0 +1,27 @@
+<section id="about" class="bg-white">
+    <img class="center-block img-responsive" alt="DeepLearning" src="img/DeepLearningLogo_BlackText_Trans.png"/>
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="section-heading">
+                <h3>Select a subject below or begin typing to search for one</h3>
+                <form class="form-inline" role="form">
+                    <div hci-search input-size="45"></div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="row text-left" ng-if="q">
+        <div class="col-sm-12">
+            <h4>Topics which may relate to {{ q }}:</h4>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3" ng-repeat="topic in foundTopics">
+            <div class="box-team wow bounceInDown" data-wow-delay="0.1s">
+                <a ui-sref="topic({'topic': topic.name})"><img ng-src="{{ topic.imgUrl }}" alt="" class="img-responsive" /></a>
+                <h4>{{ topic.heading }}</h4>
+                <p>{{ topic.description }}</p>
+            </div>
+        </div>
+    </div>
+</section>

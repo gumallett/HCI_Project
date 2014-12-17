@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html ng-app="hci">
+  <head>
+    <title>Deep Learning Home Page</title>
+    <meta charset="utf-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <!-- css -->
+    <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <link href="css/style.css" rel="stylesheet" media="screen">
+	<link href="color/default.css" rel="stylesheet" media="screen">
+    <link href="css/flashcards.css" rel="stylesheet" media="screen">
+  </head>
+  <body>
+	<div hci-nav></div>
+
+    <div id="contentPane" class="container">
+        <div ui-view></div>
+    </div>
+
+	<footer class="navbar-fixed-bottom">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12">
+					<span>Copyright &copy;2014</span>
+				</div>
+			</div>		
+		</div>	
+	</footer>
+	 
+	 <!-- js -->
+    <script src="js/third_party/angular.js"></script>
+    <script src="js/third_party/angular-sanitize.js"></script>
+    <script src="js/third_party/angular-ui-router.js"></script>
+    <script src="js/third_party/ui-bootstrap-tpls-0.12.0.min.js"></script>
+    <script src="js/third_party/textAngular.min.js"></script>
+    <script src="js/third_party/textAngular-sanitize.min.js"></script>
+    <script src="js/third_party/textAngular-rangy.min.js"></script>
+    <script src="js/app/app.js"></script>
+    <script src="js/app/quiz.module.js"></script>
+    <script src="js/app/flashcard.module.js"></script>
+    <script src="js/app/app.services.js"></script>
+</body>
+</html>
