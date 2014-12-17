@@ -8,8 +8,7 @@ Bootstrap -- Getting started
 Start the server:
 --------------------------------
 
-node bin/hci
-uses port 3000 by default
+node bin/hci -- uses port 3000 by default
 
 Directory Structure
 --------------------------------
