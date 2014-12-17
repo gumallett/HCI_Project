@@ -9,3 +9,12 @@ Start the server:
 --------------------------------
 
 node bin/hci
+
+Directory Structure
+--------------------------------
+
+bin/ -- executable for running a server within nodejs
+public/ -- public facing html/js/css files
+server/ -- http services and json storage
+app.js -- nodejs app
+package.json
