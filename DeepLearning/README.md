@@ -1,9 +1,9 @@
 Bootstrap -- Getting started
 --------------
 
-1) install nodejs
-2) npm install
-3) node bin/hci
+1) install nodejs http://nodejs.org/download/
+2) run 'npm install'
+3) run 'node bin/hci'
 
 Start the server:
 --------------------------------
