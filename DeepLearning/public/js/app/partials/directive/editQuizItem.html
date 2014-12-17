@@ -19,8 +19,7 @@
 
         <div class="form-group" ng-repeat="answer in question.answers">
             <div class="col-sm-7 col-sm-offset-2">
-                <label class="sr-only" for="answer">answer</label>
-                <input type="text" class="form-control" id="answer" ng-model="answer.text" placeholder="answer"/>
+                <input type="text" class="form-control" ng-model="answer.text" placeholder="answer" />
             </div>
             <div class="col-sm-2">
                 <div class="checkbox">
@@ -35,8 +34,7 @@
 
         <div class="form-group">
             <div class="col-sm-7 col-sm-offset-2">
-                <label class="sr-only" for="newanswer">new answer</label>
-                <input type="text" class="form-control" id="newanswer" placeholder="click to add answer" readonly ng-click="addAnswer()"/>
+                <input type="text" class="form-control newanswer" placeholder="click to add answer" readonly ng-click="addAnswer()"/>
             </div>
         </div>
 

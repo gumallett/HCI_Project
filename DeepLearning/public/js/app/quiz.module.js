@@ -140,7 +140,7 @@ quiz.directive('hciQuiz', function(QuizResource, $state, $stateParams) {
     }
 });
 
-quiz.directive('hciEditQuizItem', function() {
+quiz.directive('hciEditQuizItem', function($log, $timeout) {
     return {
         templateUrl: 'js/app/partials/directive/editQuizItem.html',
         require: '^hciQuiz',
@@ -149,12 +149,25 @@ quiz.directive('hciEditQuizItem', function() {
             edit: '&'
         },
         link: function($scope, $elem, $attrs, controller) {
+            var setFocus = function() {
+                // put the focus on the last answer field
+                var elems = $elem.find("input");
+                angular.forEach(elems, function(elem) {
+                    elem = angular.element(elem);
+                    if(!elem.attr('readonly') && elem.attr('type') === 'text') {
+                        elem[0].focus();
+                    }
+                });
+            };
+
             $scope.addAnswer = function() {
                 $scope.question.answers.push(controller.newAnswer());
+                $timeout(setFocus);
             };
 
             $scope.removeAnswer = function(idx) {
                 $scope.question.answers.splice(idx, 1);
+                $timeout(setFocus);
             };
 
             $scope.done = function() {
@@ -166,6 +179,7 @@ quiz.directive('hciEditQuizItem', function() {
             };
 
             $scope.isEditing = $scope.edit();
+            $timeout(setFocus);
         }
     }
 });
